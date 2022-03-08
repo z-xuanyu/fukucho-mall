@@ -10,27 +10,36 @@
 				</u-form-item>
 				
 				<u-form-item label="密码" leftIcon="lock" prop="userInfo.email" borderBottom>
-					<u--input placeholder="请输入密码" v-model="loginFormModel.userInfo.email" border="none"></u--input>
+					<u--input placeholder="请输入密码" v-model="loginFormModel.userInfo.password" border="none"></u--input>
 				</u-form-item>
 			</u--form>
 			
 			<view class="mt-5">
-				<u-button type="error" shape="circle" text="登录"></u-button>
+				<u-button type="error" shape="circle" @click="handleClickLogin" :loading="loading" loadingText="登录中..." text="登录"></u-button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { mapActions } from 'vuex';
 	export default {
 		data() {
 			return {
 				loginFormModel: {
 					userInfo:{
-						
+						email: '',
+						password: ''
 					}
-				}
+				},
+				loading: false
 			};
+		},
+		methods: {
+			...mapActions(['postLogin']),
+			handleClickLogin(){
+				this.postLogin(this.loginFormModel.userInfo)
+			}
 		}
 	}
 </script>

@@ -115,6 +115,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/viewHistory/viewHistory",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "浏览记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#C0C4CC",

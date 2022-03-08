@@ -21,16 +21,16 @@
 		</u-sticky>
 		<view class="bg-white m-2">
 			<!-- banner -->
-			<BannerSwiper />
+			<BannerSwiper :list="banners" heigth="600" />
 			<!-- 图标导航 -->
 			<NavIconGrid />
 		</view>
-		<GoodsCard />
+		<GoodsCard :list="hotProducts" />
 		<view class="m-2 mt-3">
-			<GoodsList />
+			<GoodsList :list="hotProducts" />
 		</view>
 		<view class="m-2 mt-3">
-			<GoodsList />
+			<GoodsList :list="hotProducts" />
 		</view>
 		<u-back-top :scroll-top="scrollTop" bottom="200" right="50"></u-back-top>
 	</view>
@@ -42,6 +42,7 @@
 	import NavIconGrid from "../../components/NavIconGrid.vue"
 	import GoodsCard from "../../components/GoodsCard.vue"
 	import GoodsList from "../../components/GoodsList.vue"
+	import { getHomeData } from "../../api/home.js"
 	export default {
 		components: {
 			SearchBar,
@@ -53,9 +54,14 @@
 		onPageScroll(e){
 			this.scrollTop = e.scrollTop;
 		},
+		created() {
+			this.fatchData();
+		},
 		data() {
 			return {
 				scrollTop: 0,
+				banners: [],
+				hotProducts: [],
 				tabList: [{
 						name: '精选'
 					},
@@ -73,6 +79,11 @@
 			}
 		},
 		methods: {
+			async fatchData(){
+			 const result = await getHomeData();
+			 this.banners = result.banners.map(item=> item.image);
+			 this.hotProducts = result.hotProducts;
+			},
 			rightClick() {
 
 			},

@@ -1,7 +1,7 @@
 <template>
 	<view class="goods-detail">
 		<!-- 轮播图 -->
-		<BannerSwiper heigth="600" />
+		<BannerSwiper :list="info.bannerImg" heigth="600" />
 		
 		<view class="p-2">
 			<u-alert type = "error" description = "￥1元开通年VIP会员,尊享大权益"></u-alert>
@@ -10,14 +10,14 @@
 					<u-tag text="会员价" type="error" size="mini"></u-tag>
 					<view class="ml-2">
 						<text class="text-2xl text-color-primary">￥</text>
-						<text class="text-color-primary">1380</text>
+						<text class="text-color-primary">{{ info.price }}</text>
 						<text class="ml-3 text-2xl text-color-gray">原价</text>
 						<text class="text-color-gray text-2xl">￥</text>
 						<text class="text-color-gray">3999</text>
 					</view>
 				</view>
 				<view class="mt-2">
-					荣耀50 SE 5G手机 流光幻境 8G+128G 全网通【碎屏险套餐】
+					{{ info.title }}
 				</view>
 				<view class="flex justify-between mt-2">
 					<view class="rounded text-2xl p-1 px-2 bg-gray">
@@ -81,16 +81,26 @@
 	import FooterActionBar from "./components/FooterActionBar.vue"
 	import BannerSwiper from "../../components/BannerSwiper.vue"
 	import GoodsComment from "./components/GoodsComment.vue"
+	import { getGoodsInfo } from "../../api/goods.js"
 	export default {
 		components:{
 			FooterActionBar,
 			BannerSwiper,
 			GoodsComment,
 		},
+		onLoad(option) {
+			this.fetchData(option.id);
+		},
 		data() {
 			return {
-
+				info: '嘻嘻',
 			};
+		},
+		methods: {
+			async fetchData(id) {
+				const result = await getGoodsInfo(id);
+				this.info = result;
+			}
 		}
 	}
 </script>

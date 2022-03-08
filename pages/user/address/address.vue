@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<view class="fixed bottom-0 left-0 right-0 p-2">
-			<u-button type="error" shape="circle" text="添加地址"></u-button>
+			<u-button @click="jumpAddAdress" type="error" shape="circle" text="添加地址"></u-button>
 		</view>
 	</view>
 </template>
@@ -38,6 +38,13 @@
 			return {
 
 			};
+		},
+		methods: {
+			jumpAddAdress(){
+				uni.navigateTo({
+					url: '/pages/user/address/address-edit',
+				});
+			}
 		}
 	}
 </script>

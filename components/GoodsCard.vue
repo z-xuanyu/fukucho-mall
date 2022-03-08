@@ -10,16 +10,14 @@
 			</view>
 			<scroll-view class="scroll-view" scroll-x="true" scroll-left="120">
 				<view class="list flex px-1">
-					<view v-for="(item, index) in 10" :key="item" class="p-1 w-full">
+					<view v-for="(item, index) in list" :key="item._id" class="p-1 w-full">
 						<view class="bg-white text-center p-2 rounded item">
-							<image  src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-7e00db99-ad65-4b9f-a74b-61bccb92b124/5433329e-95c5-4973-aa87-86c4d1815771.jpg" mode=""></image>
+							<image  :src="item.pic" mode=""></image>
 							<view class="text-2xl w-full text-left">
-								<u--text :lines="2" text="关于uView的取名来由，首字母u来自于uni-app首字母，
-								uni-app是基Vuejs，Vue和View(延伸为UI、视图之意)同音，同时view组件uni-app中
-								最础最重要的组件，故取名uView，表达源于uni-app和Vue之意，同时在此也对它示感谢。"></u--text>
+								<u--text :lines="2" :text="item.title"></u--text>
 							</view>
 							<view class="price text-color-primary text-left mt-1">
-								<text class="text-2xl">￥</text><text>1380</text>
+								<text class="text-2xl">￥</text><text>{{ item.price }}</text>
 							</view>
 						</view>
 					</view>
@@ -32,6 +30,12 @@
 <script>
 	export default {
 		name: "GoodsCard",
+		props: {
+			list: {
+				type: Array,
+				default: ()=> []
+			}
+		},
 		data() {
 			return {
 

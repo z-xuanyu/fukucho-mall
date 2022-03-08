@@ -3,8 +3,8 @@
 		<u-checkbox-group v-model="checkboxValue1" placement="column" @change="checkboxChange">
 			<view class="mt-2 rounded overflow-hidden" v-for="item in 4" :key="item">
 				<u-swipe-action>
-					<u-swipe-action-item :options="swipeActionOptions">
-						<view class="swipe-action u-border-top u-border-bottom">
+					<u-swipe-action-item :options="swipeActionOptions" @click="handleClickDel">
+						<view class="swipe-action">
 							<view class="swipe-action__content w-full">
 								<view class="flex items-center rounded">
 									<view style="width: 50rpx;" class="ml-2">
@@ -47,7 +47,7 @@
 			</view>
 		</u-checkbox-group>
 		<!-- 操作 -->
-		<view class="fixed right-0 left-0 bg-white" style="bottom: 100rpx;">
+		<view class="fixed right-0 left-0 bg-white z-10" style="bottom: 100rpx;">
 			<view class="flex justify-between px-2 py-3">
 				<u-checkbox-group>
 					<u-checkbox activeColor="#f56c6c" shape="circle" size="40" />
@@ -58,10 +58,13 @@
 						<text class="text-2xl">￥</text>
 						<text>289</text>
 					</view>
-					<u-button type="error" shape="circle" size="mini" text="去结算"></u-button>
+					<u-button @click="jumpCreateOrder" class="buy-btn" type="error" shape="circle" size="mini" text="去结算"></u-button>
 				</view>
 			</view>
 		</view>
+		
+		<!-- modal -->
+		<u-modal :show="isShowDelModal" @cancel="handleCancelDel" showCancelButton @confirm="handleDelConfirm" :asyncClose="true" content='您确认要移除该商品?'></u-modal>
 	</view>
 </template>
 
@@ -70,6 +73,7 @@
 		data() {
 			return {
 				value: 1,
+				isShowDelModal: false,
 				swipeActionOptions: [{
 					text: '删除',
 					style: {
@@ -95,6 +99,26 @@
 		methods: {
 			checkboxChange() {
 
+			},
+			handleClickDel(){
+				this.isShowDelModal = true;
+			},
+			// 确认删除
+			handleDelConfirm(){
+				setTimeout(()=>{
+					this.isShowDelModal = false;
+				},2000)
+				
+			},
+			// 取消删除
+			handleCancelDel(){
+				this.isShowDelModal = false;
+			},
+			// 跳转创建订单
+			jumpCreateOrder(){
+				uni.navigateTo({
+					url: '/pages/create-order/create-order',
+				});
 			}
 		}
 	}
@@ -146,5 +170,9 @@
 				align-items: center;
 			}
 		}
+		.buy-btn{
+			padding: 25rpx 20rpx;
+		}
 	}
+	
 </style>

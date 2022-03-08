@@ -7,7 +7,7 @@
 		<UserMeansCard />
 		<UserCellGroup />
 		<view class="p-2">
-			<GoodsList />
+			<GoodsList :list="hotGoods" />
 		</view>
 	</view>
 </template>
@@ -17,6 +17,7 @@
 	import UserMeansCard from "./components/UserMeansCard.vue"
 	import UserCellGroup from "./components/UserCellGroup.vue"
 	import GoodsList from "../../components/GoodsList.vue"
+	import { getHotGoods } from "../../api/goods.js"
 	export default {
 		components: {
 			BaseUserInfo,
@@ -26,8 +27,18 @@
 		},
 		data() {
 			return {
-				
+				hotGoods:[],
+				viewsHistory: []
 			};
+		},
+		created() {
+			this.fetchHotProduct();
+		},
+		methods: {
+			async fetchHotProduct() {
+				const res = await getHotGoods();
+				this.hotGoods = res;
+			},
 		}
 	}
 </script>
