@@ -15,11 +15,11 @@
 			<SearchBar />
 		</tm-sticky>
 
-		<view class="bg-white m-2">
+		<view class="bg-white mb-20">
 			<!-- banner -->
 			<BannerSwiper :list="banners" heigth="600" />
 			<!-- 图标导航 -->
-			<tm-sheet :margin="[20,20]" :padding="[32,0]" :round="2" :shadow="24">
+			<tm-sheet :margin="[0,0]" :padding="[32,0]" :round="2" :shadow="24">
 				<NavIconGrid />
 			</tm-sheet>
 		</view>

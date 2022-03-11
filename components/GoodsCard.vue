@@ -11,7 +11,7 @@
 			<scroll-view class="scroll-view" scroll-x="true" scroll-left="120">
 				<view class="list flex px-10">
 					<view v-for="(item, index) in list" :key="item._id" class="pa-10 fulled">
-						<view class="white text-center p-20 round-2 overflow item">
+						<view class="white text-center p-20 round-2 shadow-10 overflow item">
 							<image  :src="item.pic" mode=""></image>
 							<view class="text-size-xs fulled">
 								<view class="text-overflow-2 px-10">{{ item.title }}</view>

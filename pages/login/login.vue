@@ -35,6 +35,7 @@
 				setTimeout(()=>{
 					values && this.postLogin(values);
 					this.loading = false;
+					uni.navigateBack()
 				},1000)
 			}
 		}

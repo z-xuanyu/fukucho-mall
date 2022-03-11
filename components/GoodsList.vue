@@ -5,7 +5,7 @@
 		</view>
 		<view class="flex flex-wrap">
 			<view class="w-50" v-for="item in list" :key="item._id" @click="jumpDetail(item._id)">
-				<view class="bg-white ma-10 pa-20 white goods-item">
+				<view class="bg-white ma-10 pa-20 round-4 white goods-item shadow-10">
 					<image class="fulled" :src="item.pic" mode=""></image>
 					<view class="px-10">
 						<view class="text-overflow-2">{{ item.title }}</view>

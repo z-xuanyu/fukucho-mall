@@ -6,10 +6,10 @@
 				<view class="flex items-center">
 					<tm-avatar src="https://img1.baidu.com/it/u=2201498406,3778061117&fm=253&fmt=auto&app=138&f=JPEG?w=498&h=500"></tm-avatar>
 					<view class="info ml-10">
-						<view class="name text-size-xs mb-10">
+						<view class="name text-size-xs">
 							爱一个人
 						</view>
-						<u-rate :count="5"></u-rate>
+						<tm-rate v-model="rate" size="26"></tm-rate>
 					</view>
 				</view>
 				<text class="text-size-xs text-grey">2022/03/01</text>
@@ -26,7 +26,7 @@
 		name: 'GoodsComment',
 		data() {
 			return {
-				
+				rate:5
 			}
 		},
 	}
