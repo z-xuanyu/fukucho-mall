@@ -12,11 +12,11 @@
 	}
 </script>
 
-<style lang="scss">
-	@import "@/uni_modules/uview-ui/index.scss";
-	@import './static/iconfont/iconfont';
+<style>
 	/*每个页面公共css */
-	*{
-		box-sizing: border-box;
+	@import './tm-vuetify/mian.min.css';
+	@import './tm-vuetify/scss/theme.css';
+	.items-center{
+		align-items: center;
 	}
 </style>

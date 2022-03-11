@@ -1,20 +1,20 @@
 <template>
-	<view class="bg-white mt-2 rounded">
-		<u-cell :border="false" title="用户评价" value="查看全部" :isLink="true"></u-cell>
-		<view class="px-3 pb-3" v-for="item in 3" :key="item">
-			<view class="flex items-center justify-between">
+	<view class="white mt-20 pb-20 round-2">
+		<tm-listitem :round="0" :margin="[0,0]"  title="用户评价" value="查看全部"></tm-listitem>
+		<view class="px-30 my-30" v-for="item in 3" :key="item">
+			<view class="flex items-center flex-between">
 				<view class="flex items-center">
-					<u-avatar size="75" src="https://img1.baidu.com/it/u=2201498406,3778061117&fm=253&fmt=auto&app=138&f=JPEG?w=498&h=500"></u-avatar>
-					<view class="info ml-1">
-						<view class="name text-2xl mb-1">
+					<tm-avatar src="https://img1.baidu.com/it/u=2201498406,3778061117&fm=253&fmt=auto&app=138&f=JPEG?w=498&h=500"></tm-avatar>
+					<view class="info ml-10">
+						<view class="name text-size-xs mb-10">
 							爱一个人
 						</view>
 						<u-rate :count="5"></u-rate>
 					</view>
 				</view>
-				<text class="text-2xl text-color-gray">2022/03/01</text>
+				<text class="text-size-xs text-grey">2022/03/01</text>
 			</view>
-			<view class="content text-2xl mt-2">
+			<view class="content text-size-xs mt-20">
 				电池太给了。非常不错!
 			</view>
 		</view>

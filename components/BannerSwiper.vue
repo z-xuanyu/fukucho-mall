@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-swiper :height="heigth" indicator :list="list" @change="handleChange" @click="handleClick"></u-swiper>
+		<tm-swiper :autoplay="false" :height="heigth" dot-model="round" dot-direction="right" :indicator-dots="true" :list="list"></tm-swiper>
 	</view>
 </template>
 

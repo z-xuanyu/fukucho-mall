@@ -46,10 +46,13 @@ http.interceptors.response.use(async (response) => {
 	if (code == 0) {
 		return result
 	}
+	// 错误提示
+	uni.showToast({
+		title: response.data.message,
+		icon: 'none'
+	})
 	return Promise.reject(response)
-}, (response) => { // 请求错误做点什么。可以使用async await 做异步操作
-	console.log(response.statusCode, 555555)
-
+}, (response) => {
 	switch (response.statusCode) {
 		// 提示登录
 		case 401:
@@ -60,6 +63,8 @@ http.interceptors.response.use(async (response) => {
 		default:
 			break;
 	}
+	
+	
 	if (response.config.custom.loading) {
 		uni.hideLoading()
 	}

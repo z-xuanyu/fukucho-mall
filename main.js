@@ -2,16 +2,16 @@ import App from './App'
 
 // #ifndef VUE3
 import Vue from 'vue'
-import uView from '@/uni_modules/uview-ui'
+import tmVuetify from "./tm-vuetify";
+import store from "./store";
+Vue.use(tmVuetify);
+
 Vue.config.productionTip = false
 App.mpType = 'app'
-import store from "./store";
 const app = new Vue({
     ...App,
-	store,
-	uView
+	store
 })
-uni.$u.config.unit = 'rpx'
 app.$mount()
 // #endif
 

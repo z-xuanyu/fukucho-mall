@@ -1,23 +1,23 @@
 <template>
-	<view class="goods-card relative  mx-2"
+	<view class="goods-card relative  mx-20"
 		style="background-image: url('https://cdn.uviewui.com/uview/swiper/swiper3.png'); background-position: center center; background-size: cover; background-repeat: no-repeat;">
-		<view class="absolute bottom-0 w-full">
-			<view class="text-bg-white px-2 text-5xl">
+		<view class="absolute b-0 fulled">
+			<view class="text-white px-20 text-5xl">
 				会员8折|新势人气榜
 			</view>
-			<view class="text-2xl px-2 py-1 text-bg-white">
+			<view class="text-size-lg px-20 py-10 text-white">
 				王牌套组王牌套组王牌套组王牌套组王牌套组
 			</view>
 			<scroll-view class="scroll-view" scroll-x="true" scroll-left="120">
-				<view class="list flex px-1">
-					<view v-for="(item, index) in list" :key="item._id" class="p-1 w-full">
-						<view class="bg-white text-center p-2 rounded item">
+				<view class="list flex px-10">
+					<view v-for="(item, index) in list" :key="item._id" class="pa-10 fulled">
+						<view class="white text-center p-20 round-2 overflow item">
 							<image  :src="item.pic" mode=""></image>
-							<view class="text-2xl w-full text-left">
-								<u--text :lines="2" :text="item.title"></u--text>
+							<view class="text-size-xs fulled">
+								<view class="text-overflow-2 px-10">{{ item.title }}</view>
 							</view>
-							<view class="price text-color-primary text-left mt-1">
-								<text class="text-2xl">￥</text><text>{{ item.price }}</text>
+							<view class="price text-primary text-left mt-10 pa-10">
+								<text class="text-size-xs">￥</text><text>{{ item.price }}</text>
 							</view>
 						</view>
 					</view>

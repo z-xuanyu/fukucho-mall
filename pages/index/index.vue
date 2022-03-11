@@ -1,48 +1,48 @@
 <template>
 	<view class="home-page">
-		<u-sticky :customNavHeight="0">
-			<!-- 顶部状态栏 -->
-			<u-navbar :fixed="false" title="FUKUCHO" @rightClick="rightClick" :autoBack="true">
+		<!-- 顶部状态栏 -->
+		<tm-sticky :top="0">
+			<tm-menubars title="FUKUCHO" color="white">
 				<template #left>
-					<u-icon name="map" size="45"></u-icon>
+					<tm-icons size="45" class="ml-20" color="grey" name="icon-position"></tm-icons>
 				</template>
 				<template #right>
-					<u-icon name="chat" size="45"></u-icon>
-					<u-icon name="bell" size="45"></u-icon>
+					<tm-icons size="40" color="grey" name="icon-aliwangwang"></tm-icons>
+					<tm-icons size="45" class="mx-20" color="grey" name="icon-bell"></tm-icons>
 				</template>
-			</u-navbar>
+			</tm-menubars>
 			<!--搜索 -->
 			<SearchBar />
-			<!-- tabs -->
-			<!-- <view class="bg-white">
-				<u-tabs :list="tabList" :scrollable="false" lineColor="#000" lineWidth="40" lineHeight="5"
-					@click="handleClickTab"></u-tabs>
-			</view> -->
-		</u-sticky>
+		</tm-sticky>
+
 		<view class="bg-white m-2">
 			<!-- banner -->
 			<BannerSwiper :list="banners" heigth="600" />
 			<!-- 图标导航 -->
-			<NavIconGrid />
+			<tm-sheet :margin="[20,20]" :padding="[32,0]" :round="2" :shadow="24">
+				<NavIconGrid />
+			</tm-sheet>
 		</view>
 		<GoodsCard :list="hotProducts" />
-		<view class="m-2 mt-3">
+		<view class="ma-10 mt-30">
 			<GoodsList :list="hotProducts" />
 		</view>
-		<view class="m-2 mt-3">
+		<view class="ma-10 mt-30">
 			<GoodsList :list="hotProducts" />
 		</view>
-		<u-back-top :scroll-top="scrollTop" bottom="200" right="50"></u-back-top>
 	</view>
 </template>
 
 <script>
 	import SearchBar from "./components/SearchBar.vue";
+
 	import BannerSwiper from "../../components/BannerSwiper.vue"
 	import NavIconGrid from "../../components/NavIconGrid.vue"
 	import GoodsCard from "../../components/GoodsCard.vue"
 	import GoodsList from "../../components/GoodsList.vue"
-	import { getHomeData } from "../../api/home.js"
+	import {
+		getHomeData
+	} from "../../api/home.js"
 	export default {
 		components: {
 			SearchBar,
@@ -51,7 +51,7 @@
 			GoodsCard,
 			GoodsList
 		},
-		onPageScroll(e){
+		onPageScroll(e) {
 			this.scrollTop = e.scrollTop;
 		},
 		created() {
@@ -79,10 +79,10 @@
 			}
 		},
 		methods: {
-			async fatchData(){
-			 const result = await getHomeData();
-			 this.banners = result.banners.map(item=> item.image);
-			 this.hotProducts = result.hotProducts;
+			async fatchData() {
+				const result = await getHomeData();
+				this.banners = result.banners.map(item => item.image);
+				this.hotProducts = result.hotProducts;
 			},
 			rightClick() {
 

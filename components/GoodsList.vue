@@ -1,17 +1,17 @@
 <template>
 	<view class="goods-list">
-		<view class="title px-2 text-3xl mb-1" v-if="showTitle">
+		<view class="title px-20 text-size-xl mb-10" v-if="showTitle">
 			{{ title }}
 		</view>
 		<view class="flex flex-wrap">
-			<view class="w-50 p-1" v-for="item in list" :key="item._id" @click="jumpDetail(item._id)">
-				<view class="bg-white goods-item pb-2 rounded">
-					<image class="w-full" :src="item.pic" mode=""></image>
-					<view class="px-2">
-						<u--text :lines="2" :text="item.title"></u--text>
+			<view class="w-50" v-for="item in list" :key="item._id" @click="jumpDetail(item._id)">
+				<view class="bg-white ma-10 pa-20 white goods-item">
+					<image class="fulled" :src="item.pic" mode=""></image>
+					<view class="px-10">
+						<view class="text-overflow-2">{{ item.title }}</view>
 					</view>
-					<view class="mt-2 px-1 text-color-primary">
-						<text class="text-2xl">￥</text><text>{{ item.price }}</text>
+					<view class="mt-20 px-10 text-primary">
+						<text class="text-size-xs">￥</text><text>{{ item.price }}</text>
 					</view>
 				</view>
 			</view>
@@ -58,6 +58,9 @@
 	.goods-list{
 		image{
 			height: 360rpx;
+		}
+		.w-50{
+			width: 50%;
 		}
 		.goods-item{
 			height: 500rpx;

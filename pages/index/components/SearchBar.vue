@@ -1,8 +1,6 @@
 <template>
-	<view class="px-1 bg-white pb-2">
-		<u-search height="60" shape="shape" placeholder="请输入关键词" :showAction="false" searchIconSize="40">
-			
-		</u-search>
+	<view class="px-1 white py-10">
+		<tm-search v-model="value"  bgColor="white" color="white" placeholder="搜索关键词" insertColor="grey" :round="25" :show-right="false"></tm-search>
 	</view>
 </template>
 
@@ -11,7 +9,7 @@
 		name:'SearchBar',
 		data() {
 			return {
-				title: 'Hello'
+				value: ''
 			}
 		},
 		methods: {

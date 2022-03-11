@@ -1,48 +1,54 @@
 <template>
 	<view class="address-page">
-		<view class="p-2">
-			<view class="p-3 bg-white rounded mb-2" v-for="item in 3" :key="item">
-				<view class="title">
+		<view class="pa-20">
+			<view class="pa-30 white round-2 mb-20" v-for="item in 3" :key="item">
+				<view class="title ml-20">
 					广东省-广州市-天河区 龙洞梁婆街6号
 				</view>
-				<view class="text-2xl mt-2">
+				<view class="text-size-xs mt-20 ml-20">
 					<text>阿宇</text>
-					<text class="ml-2">15800021934</text>
+					<text class="ml-20">15800021934</text>
 				</view>
-				<view class="border-b mt-3"></view>
-				<view class="flex justify-between mt-1 py-2">
+				<view class="border-b mt-15"></view>
+				<view class="flex flex-between">
 					<view class="flex items-center">
-						<u-radio-group>
-							<u-radio size="30" activeColor="#f56c6c" shape="circle" />
-						</u-radio-group>
-
-						<text class="text-2xl text-color-primary">默认地址</text>
+						<tm-radio :size="26" border-color="red" v-model="checked" label="默认地址"
+											model="round" round="rounded"></tm-radio>
 					</view>
 					<view class="flex">
-						<u-icon name="edit-pen" size="42"></u-icon>
-						<u-icon class="ml-2" name="trash" size="42"></u-icon>
+						<tm-icons :size="35" color="grey" name="icon-edit"></tm-icons>
+						<tm-icons :size="35" color="grey" class="ml-20" name="icon-delete"></tm-icons>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="fixed bottom-0 left-0 right-0 p-2">
-			<u-button @click="jumpAddAdress" type="error" shape="circle" text="添加地址"></u-button>
+		<view class="fixed b-0 l-0 r-0 pa-20">
+			<tm-button :round="24" block @click="jumpAddAdress">添加地址</tm-button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { getUserAddressList } from "../../../api/user.js"
 	export default {
 		name: 'UserAddress',
 		data() {
 			return {
-
+				checked: false,
+				list: []
 			};
 		},
+		created() {
+			
+		},
 		methods: {
+			async fetchData() {
+				const res = await getUserAddressList();
+				this.list = res;
+			},
 			jumpAddAdress(){
 				uni.navigateTo({
-					url: '/pages/user/address/address-edit',
+					url: "/pages/user/address/address-edit?type=add",
 				});
 			}
 		}

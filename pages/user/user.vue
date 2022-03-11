@@ -1,12 +1,10 @@
 <template>
 	<view  class="user-page">
-		<u-sticky :customNavHeight="0">
-			<BaseUserInfo />
-		</u-sticky>
+		<BaseUserInfo />
 		<!-- 用户功能菜单 -->
 		<UserMeansCard />
 		<UserCellGroup />
-		<view class="p-2">
+		<view class="pa-20">
 			<GoodsList :list="hotGoods" />
 		</view>
 	</view>

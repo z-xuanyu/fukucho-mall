@@ -1,24 +1,24 @@
 <template>
-	<view class="histroy-page p-2">
-		<view class="bg-white rounded p-2 mb-2 flex" v-for="item in viewsHistory" :key="item.productId._id" @click="onGoodsInfo(item.productId._id)">
-			<view class="goods-img overflow-hidden">
+	<view class="histroy-page pa-20">
+		<view class="white round-2 pa-20 mb-20 flex" v-for="item in viewsHistory" :key="item.productId._id" @click="onGoodsInfo(item.productId._id)">
+			<view class="goods-img overflow">
 				<image :src="item.productId.pic" mode="widthFix"></image>
 			</view>
-			<view class="info flex flex-column justify-between">
-				<view class="text-2xl">
-					<u--text :lines="2" :text="item.productId.title"></u--text>
+			<view class="info flex flex-col flex-between">
+				<view class="text-size-xs text-overflow-2">
+					{{ item.productId.title }}
 				</view>
-				<view class="flex justify-between mb-2">
-					<view class="text-color-primary">
-						<text class="text-2xl">￥</text>
+				<view class="flex flex-between mb-20 fulled">
+					<view class="text-primary">
+						<text class="text-size-xs">￥</text>
 						<text>{{ item.productId.price }}</text>
 					</view>
 					<view class="flex items-center">
-						<view class="text-2xl text-color-gray">
+						<view class="text-size-xs text-grey">
 							<text>浏览</text>
 							<text>99</text>
 						</view>
-						<u-icon class="ml-2" name="trash" color="#CCCCCC" size="45"></u-icon>
+						<tm-icons :size="30" name="icon-delete" color="grey" class="ml-30"></tm-icons>
 					</view>
 				</view>
 			</view>
