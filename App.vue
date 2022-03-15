@@ -8,7 +8,7 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
-		}
+		},
 	}
 </script>
 
@@ -18,5 +18,8 @@
 	@import './tm-vuetify/scss/theme.css';
 	.items-center{
 		align-items: center;
+	}
+	.h-full{
+		height: 100%;
 	}
 </style>

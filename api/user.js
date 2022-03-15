@@ -18,8 +18,8 @@ export function getUserCollections() {
 }
 
 // 添加用户地址信息
-export function createAddress(id,data) {
-	return request.post(`user/address/${id}`, data)
+export function createAddress(data) {
+	return request.post(`user/address`, data)
 }
 
 // 获取用户地址列表
@@ -40,4 +40,9 @@ export function updateAddress(id,data) {
 // 删除地址
 export function removeAddress(id) {
 	return request.delete(`user/address/${id}`)
+}
+
+// 更新用户默认地址
+export function updateAddressDefault(data) {
+	return request.put('user/updateDefaultAddress', data)
 }

@@ -9,7 +9,7 @@
 						<view class="name text-size-xs">
 							爱一个人
 						</view>
-						<tm-rate v-model="rate" size="26"></tm-rate>
+						<tm-rate v-model="rate" :size="26"></tm-rate>
 					</view>
 				</view>
 				<text class="text-size-xs text-grey">2022/03/01</text>

@@ -1,32 +1,33 @@
 <template>
 	<view class="cart-page px-20 py-10">
-		<tm-groupcheckbox>
-			<view class="mt-20 round-4 overflow shadow-5" v-for="item in 4" :key="item">
+		<tm-groupcheckbox @change="groupCheckboxChange">
+			<view class="mt-20 round-4 overflow shadow-5" v-for="item in list" :key="item._id">
 				<view class="fulled white">
 					<view class="flex align-items round-2">
 						<view class="ml-10">
-							<tm-checkbox v-model="checked" model="round" round="rounded"
-								:border-color="checked ? 'primary': 'grey'" />
+							<tm-checkbox v-model="item.checked" model="round" round="rounded"
+								:border-color="item.checked ? 'primary': 'grey'" />
 						</view>
 						<view class="goods-info py-30 pr-10">
 							<view class="flex">
 								<image
-									src="https://img12.360buyimg.com/seckillcms/s140x140_jfs/t1/202200/26/8685/97496/6152cb3bE89f521f2/8d4dc1641d1fc2ea.jpg"
+									:src="item.productId.pic"
 									mode="aspectFit"></image>
 								<view class="right">
 									<view class="text-overflow-2 text-size-m">
-										凤凰（Phoenix）儿童自行车山地车男女学生脚踏车6-12岁童车 霸道 白蓝色 18寸
+										{{ item.productId.title }}
 									</view>
 									<view class="my-15 text-size-xs text-grey">
-										黑色
+										{{ item.skuName }}
 									</view>
 									<view class="flex items-center flex-between">
 										<view class="price text-primary">
-											<text class="text-size-g">￥</text><text>598</text>
+											<text class="text-size-g">￥</text><text>{{ item.price }}</text>
 										</view>
 										<!-- <tm-stepper :width="150" :height="38" v-model="word" :step="10" :round="25"></tm-stepper> -->
-										<tm-stepper circular v-model="word" :width="120" :height="38" :min="0" :max="10" :step="1" :round="24"></tm-stepper>
-										<tm-icons size="32" class="mr-10" name="icon-delete-fill" color="grey"></tm-icons>
+										<tm-stepper circular v-model="item.num" :width="120" :height="38" :min="0" :max="10"
+											:step="1" :round="24"></tm-stepper>
+										<tm-icons size="32" class="mr-10" name="icon-delete-fill" color="grey" @click="handleClickDel(item._id)" />
 									</view>
 								</view>
 							</view>
@@ -38,53 +39,70 @@
 		<!-- 操作 -->
 		<view class="fixed r-0 l-0 white zIndex-10 border-b-1" style="bottom: 50px;">
 			<view class="flex flex-between items-center px-20 py-10">
-				<tm-groupcheckbox>
-					<tm-checkbox v-model="checkAll" model="round" round="rounded"
-						:border-color="checkAll ? 'primary': 'grey'" />
-				</tm-groupcheckbox>
+				<view @click="changeCheAll">
+					<tm-groupcheckbox>
+						<tm-checkbox v-model="checkAll" model="round" round="rounded"
+							:border-color="checkAll ? 'primary': 'grey'" />
+					</tm-groupcheckbox>
+				</view>
 
 				<view class="flex items-center">
 					<view class="price text-primary mr-20">
 						<text class="text-size-xs">￥</text>
-						<text>289</text>
+						<text>{{ totalPrice }}</text>
 					</view>
 					<tm-button theme="primary" :round="10" size="s" @click="jumpCreateOrder">去结算</tm-button>
 				</view>
 			</view>
 		</view>
+		
+		<!-- 提示modal -->
+		<tm-dialog v-model="isShowDelModal" content="您确认要移除该商品？" @confirm="handleDelConfirm" theme="split"></tm-dialog>
+		<tm-message ref="toast"></tm-message>
 	</view>
 </template>
 
 <script>
-	import tmGroupcheckbox from "@/tm-vuetify/components/tm-groupcheckbox/tm-groupcheckbox.vue"
-	import tmCheckbox from "@/tm-vuetify/components/tm-checkbox/tm-checkbox.vue"
-	import tmStepper from "@/tm-vuetify/components/tm-stepper/tm-stepper.vue"
+	import { getCartList, removeCartInfo } from "../../api/cart.js"
 	export default {
-		components: {
-			tmGroupcheckbox,
-			tmCheckbox,
-			tmStepper
-		},
 		data() {
 			return {
-				word:1,
-				checked: false,
-				checkAll: false,
+				cartInfoId: null,
+				checkAll: true,
+				isShowDelModal: false,
+				list: []
 			};
 		},
+		created() {
+			this.fetchData();
+		},
 		methods: {
+			async fetchData() {
+				const res = await getCartList();
+				this.list = res.map(item=> {
+					return {
+						...item,
+						checked: true,
+					}
+				})
+				uni.setTabBarBadge({
+				  index: 2,
+				  text: `${res.length}`
+				})
+			},
 			checkboxChange() {
 
 			},
-			handleClickDel() {
+			// 点击删除
+			handleClickDel(id) {
+				this.cartInfoId = id;
 				this.isShowDelModal = true;
 			},
 			// 确认删除
-			handleDelConfirm() {
-				setTimeout(() => {
-					this.isShowDelModal = false;
-				}, 2000)
-
+			async handleDelConfirm() {
+				await removeCartInfo(this.cartInfoId)
+				this.$refs.toast.show({model:'success', label: '删除成功'})
+				this.fetchData();
 			},
 			// 取消删除
 			handleCancelDel() {
@@ -95,6 +113,26 @@
 				uni.navigateTo({
 					url: '/pages/create-order/create-order',
 				});
+			},
+			// 复选组改变
+			groupCheckboxChange(values){
+				if(values.length && (this.list.length === values.length)) {
+					this.checkAll = true;
+				}else{
+					 if(values.length) this.checkAll = false;
+				}
+			},
+			// 全选改变
+			changeCheAll(){
+				this.list.forEach(item=> item.checked = this.checkAll)
+			}
+		},
+		computed: {
+			// 合计
+			totalPrice() {
+				return this.list.filter(item=> item.checked).reduce((pre,next)=>{
+					return pre + next.price
+				},0)
 			}
 		}
 	}
@@ -104,11 +142,14 @@
 	.cart-page {
 		min-height: calc(100vh - 94px);
 		background-color: #f6f6f6;
-		.align-items{
+
+		.align-items {
 			align-items: center;
 		}
+
 		.goods-info {
 			flex: 1;
+
 			image {
 				margin-right: 20rpx;
 				width: 120rpx;

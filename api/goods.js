@@ -9,3 +9,8 @@ export function getGoodsInfo(id){
 export function getHotGoods(){
 	return request.get('product/hot')
 }
+
+// 用户收藏商品
+export function collectionGoods(productId) {
+	return request.post(`product/collection/${productId}`)
+}

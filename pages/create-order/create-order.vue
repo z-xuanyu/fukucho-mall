@@ -6,7 +6,7 @@
 			</view>
 		</tm-sheet>
 		<!-- 地址 -->
-		<tm-listitem :margin="[0,20]" :padding="[35,35]" title="请选择地址" left-icon="icon-position" show-left-icon left-icon-color="grey"></tm-listitem>
+		<tm-listitem :margin="[0,20]" :padding="[35,35]" title="请选择地址" left-icon="icon-position" show-left-icon left-icon-color="grey" @click="jumpAddress"></tm-listitem>
 		<!-- 商品信息 -->
 		<view class="goods-info flex mt-20 round-2 pa-20 white shadow-5">
 			<view class="goods-info__img">

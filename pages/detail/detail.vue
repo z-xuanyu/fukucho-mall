@@ -27,9 +27,9 @@
 						购买可得<text class="text-primary">1</text>积分
 					</view>
 					<view class="flex items-center">
-						<text class="text-size-xs text-grey mr-10">销量: 8</text>
+						<text class="text-size-xs text-grey mr-10">销量: {{ info.views }}</text>
 						<view class="rounded pa-10 gray">
-							<tm-icons size="35" color="grey" name="icon-share"></tm-icons>
+							<tm-icons size="35" color="grey" name="icon-share" @click="onClickShare"></tm-icons>
 						</view>
 					</view>
 				</view>
@@ -85,7 +85,9 @@
 			</view>
 		</view>
 		<!-- 底部操作栏 -->
-		<FooterActionBar />
+		<FooterActionBar :info="info" />
+		<!-- 面板 -->
+		<tm-shareSheet @change="onClickShareSheet"  v-model="showShare"></tm-shareSheet>
 	</view>
 </template>
 
@@ -107,13 +109,21 @@
 		},
 		data() {
 			return {
-				info: '嘻嘻',
+				info: '',
+				showShare: false,
+				showSku: true,
 			};
 		},
 		methods: {
 			async fetchData(id) {
 				const result = await getGoodsInfo(id);
 				this.info = result;
+			},
+			onClickShare(){
+				this.showShare = !this.showShare;
+			},
+			onClickShareSheet(value) {
+				console.log(value, 566456)
 			}
 		}
 	}

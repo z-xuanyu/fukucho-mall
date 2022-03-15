@@ -15,13 +15,11 @@
 			<SearchBar />
 		</tm-sticky>
 
-		<view class="bg-white mb-20">
+		<view class="bg-white my-20">
 			<!-- banner -->
-			<BannerSwiper :list="banners" heigth="600" />
+			<tm-swiper :round="6" :margin="20" :autoplay="false" :height="600" dot-model="round" dot-direction="right" :indicator-dots="true" :list="banners"></tm-swiper>
 			<!-- 图标导航 -->
-			<tm-sheet :margin="[0,0]" :padding="[32,0]" :round="2" :shadow="24">
-				<NavIconGrid />
-			</tm-sheet>
+			<NavIconGrid />
 		</view>
 		<GoodsCard :list="hotProducts" />
 		<view class="ma-10 mt-30">
@@ -35,8 +33,6 @@
 
 <script>
 	import SearchBar from "./components/SearchBar.vue";
-
-	import BannerSwiper from "../../components/BannerSwiper.vue"
 	import NavIconGrid from "../../components/NavIconGrid.vue"
 	import GoodsCard from "../../components/GoodsCard.vue"
 	import GoodsList from "../../components/GoodsList.vue"
@@ -46,7 +42,6 @@
 	export default {
 		components: {
 			SearchBar,
-			BannerSwiper,
 			NavIconGrid,
 			GoodsCard,
 			GoodsList
