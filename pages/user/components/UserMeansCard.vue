@@ -25,7 +25,7 @@
 			</view>
 		</view>
 		<tm-sheet :shadow="24">
-			<view class="text-size-s text-weight-b mb-24">我的订单</view>
+			<tm-listitem title="我的订单" @click="jumpOrderList" :margin="[0,0]" left-icon="icon-database" show-left-icon left-icon-color="pink" value="查看全部"></tm-listitem>
 			<tm-grid @click-dot="iconClick" @change="change" color="blue" :list="list"></tm-grid>
 		</tm-sheet>
 	</view>
@@ -37,24 +37,29 @@
 			return {
 				list: [{
 						icon: 'icon-QQ',
-						text: 'QQ',
+						text: '待支付',
 						color: 'blue'
 					},
 					{
 						icon: 'icon-weibo',
-						text: '微博',
+						text: '待发货',
 						iconSize: 40,
 						color: 'blue'
 					},
 					{
 						icon: 'icon-pengyouquan',
-						text: '朋友圈',
+						text: '待收货',
 						color: 'green',
 						fontColor: 'green'
 					},
 					{
 						icon: 'icon-aliwangwang',
-						text: '阿里旺旺',
+						text: '待评价',
+						color: 'blue-grey'
+					},
+					{
+						icon: 'icon-aliwangwang',
+						text: '售后/退款',
 						color: 'blue-grey'
 					},
 				],
@@ -62,7 +67,12 @@
 		},
 		methods: {
 			iconClick(){},
-			change(){}
+			change(){},
+			jumpOrderList() {
+				uni.navigateTo({
+					url: '/pages/user/order/order'
+				})
+			}
 		}
 	}
 </script>

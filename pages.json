@@ -136,6 +136,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/order/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/goods-all/goods-all",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "全部商品",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#C0C4CC",
