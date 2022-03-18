@@ -127,7 +127,16 @@
 		    }
 		    
 		}
-	],
+	    ,{
+            "path" : "pages/payment/payment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "支付",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#C0C4CC",
 		"selectedColor": "#ff6a6c",

@@ -6,22 +6,33 @@
 			</view>
 		</tm-sheet>
 		<!-- 地址 -->
-		<tm-listitem :margin="[0,20]" :padding="[35,35]" title="请选择地址" left-icon="icon-position" show-left-icon left-icon-color="grey" @click="jumpAddress"></tm-listitem>
-		<!-- 商品信息 -->
-		<view class="goods-info flex mt-20 round-2 pa-20 white shadow-5">
-			<view class="goods-info__img">
-				<image src="https://img15.shop-pro.jp/PA01085/674/product/136069239.jpg?cmsp_timestamp=20211023113253"
-					mode=""></image>
+		<tm-listitem :margin="[0,20]" :padding="[35,35]" left-icon="icon-position" class="address-wrapper" show-left-icon left-icon-color="grey" @click="jumpAddress">
+			<view v-if="addressInfo">
+				<view class="text-size-xs">
+					{{ addressInfo.address }} {{ addressInfo.detail}}
+				</view>
+				<view class="text-size-xs mt-10">
+					{{ addressInfo.name }}  {{ addressInfo.phone }}
+				</view>
 			</view>
-			<view class="flex-1">
-				<view class="text-overflow-2 text-size-n">
-					凤凰（Phoenix）儿童自行车山地车男女学生脚踏车6-12岁童车 霸道 白蓝色 18寸
+		</tm-listitem>
+		<!-- 商品信息 -->
+		<view class="goods-info mt-20 round-2 pa-20 white shadow-5">
+			<view class="flex my-25" v-for="item in selectCartList" :key="item._id">
+				<view class="goods-info__img">
+					<image :src="item.productId.pic"
+						mode=""></image>
 				</view>
-				<view class="num text-size-xs text-grey my-30">
-					x1
-				</view>
-				<view class="price text-primary">
-					<text class="text-size-xs">￥</text><text>539</text>
+				<view class="flex-1">
+					<view class="text-overflow-2 text-size-xs">
+						{{ item.productId.title }}
+					</view>
+					<view class="num text-size-xs text-grey my-30">
+						x {{ item.num }}
+					</view>
+					<view class="price text-primary">
+						<text class="text-size-xs">￥</text><text>{{ item.price }}</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -33,7 +44,7 @@
 		<view class="white round-2 mt-20 pa-30 text-size-xs">
 			<view class="flex mb-30 flex-between">
 				<text>总金额</text>
-				<text>￥539</text>
+				<text>￥{{ totalPrice }}</text>
 			</view>
 			<view class="flex flex-between">
 				<text>优惠金额</text>
@@ -53,9 +64,9 @@
 			<view>
 				<text class="text-size-xs">实支付</text>
 				<text class="text-size-xs ml-20 text-primary">￥</text>
-				<text class="text-primary">539.00</text>
+				<text class="text-primary">{{ totalPrice }}</text>
 			</view>
-			<view class="primary submit-btn text-white">
+			<view class="primary submit-btn text-white" @click="submitOrder">
 				提交订单
 			</view>
 		</view>
@@ -63,17 +74,43 @@
 </template>
 
 <script>
+	import { getUserAddressList } from "../../api/user.js"
 	export default {
 		data() {
 			return {
-
+				addressInfo: '',
+				selectCartList: []
 			};
 		},
+		onShow() {
+			const selectCartList = uni.getStorageSync('selectCartList');
+			this.selectCartList = selectCartList;
+		},
+		created() {
+			this.fetchAddressData();
+		},
 		methods: {
+			async fetchAddressData() {
+			  const res  = await getUserAddressList();
+			  this.addressInfo = res.find(item=> item.isDefault);
+			},
 			jumpAddress(){
 				uni.navigateTo({
-					url: '/pages/user/address/address',
+					url: '/pages/user/address/address?from=cart',
 				});
+			},
+			// 提交订单
+			submitOrder() {
+				uni.navigateTo({
+					url: '/pages/payment/payment'
+				})
+			}
+		},
+		computed: {
+			totalPrice() {
+				return this.selectCartList.reduce((pre, next)=>{
+					return pre + (next.price * next.num)
+				},0)
 			}
 		}
 	}
@@ -83,7 +120,6 @@
 	.create-order-page {
 		background-color: #f6f6f6;
 		height: calc(100vh - 44px);
-
 		.goods-info {
 			&__img {
 				image {

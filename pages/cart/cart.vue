@@ -73,8 +73,8 @@
 				list: []
 			};
 		},
-		created() {
-			this.fetchData();
+		onShow() {
+			this.fetchData()
 		},
 		methods: {
 			async fetchData() {
@@ -110,6 +110,8 @@
 			},
 			// 跳转创建订单
 			jumpCreateOrder() {
+				const selectCartList = this.list.filter(item=> item.checked);
+				uni.setStorageSync('selectCartList', selectCartList);
 				uni.navigateTo({
 					url: '/pages/create-order/create-order',
 				});
@@ -119,7 +121,7 @@
 				if(values.length && (this.list.length === values.length)) {
 					this.checkAll = true;
 				}else{
-					 if(values.length) this.checkAll = false;
+					 if(this.list.length) this.checkAll = false;
 				}
 			},
 			// 全选改变
