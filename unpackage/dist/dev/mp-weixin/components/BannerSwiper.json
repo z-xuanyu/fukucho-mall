@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tm-swiper": "/tm-vuetify/components/tm-swiper/tm-swiper"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="{{['tm-sticky','fulled','data-v-53a699c9',model_val]}}" style="{{'top:'+(model_val=='top'||model_val=='static'?top_val+'px':'auto')+';'+('bottom:'+(model_val=='bottom'?top_val+'px':'auto')+';')}}"><slot></slot></view>

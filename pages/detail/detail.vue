@@ -43,7 +43,7 @@
 					</view>
 					<tm-icons size="20" color="grey" name="icon-angle-right"></tm-icons>
 				</view>
-				<view class="flex py-20 flex-between items-center">
+				<view class="flex py-20 flex-between items-center" @click="showCoupon = true">
 					<view>
 						<text class="text-grey cell-label">优惠券</text>
 						<text>领取优惠券</text>
@@ -88,6 +88,12 @@
 		<FooterActionBar :info="info" />
 		<!-- 面板 -->
 		<tm-shareSheet @change="onClickShareSheet"  v-model="showShare"></tm-shareSheet>
+		<!-- 优惠券弹出层 -->
+		<tm-poup v-model="showCoupon" :height='400' position="bottom">
+			<view class="ma-32 ">
+				<tm-coupon color="orange" :hdata="d_1"></tm-coupon>
+			</view>
+		</tm-poup>
 	</view>
 </template>
 
@@ -112,6 +118,16 @@
 				info: '',
 				showShare: false,
 				showSku: true,
+				showCoupon: false,
+				d_1: {
+					sale: '50',
+					saleSplit: '￥',
+					saleLable: '买满79元可用',
+					title: '满79减15元券',
+					time: '2021.11.11-2021.11.12 15:00:00',
+					btnText: '去使用',
+					label: '说明：优惠券说明优惠券说明优'
+				},
 			};
 		},
 		methods: {

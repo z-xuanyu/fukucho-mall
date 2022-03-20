@@ -29,7 +29,7 @@
 				viewsHistory: []
 			};
 		},
-		created() {
+		onShow() {
 			this.fetchHotProduct();
 		},
 		methods: {

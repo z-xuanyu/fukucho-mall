@@ -1,0 +1,16 @@
+{
+  "component": true,
+  "usingComponents": {
+    "goods-all-tm-flow-layout-left": "/pages/goods-all/goods-all-tm-flow-layout-left",
+    "goods-all-tm-flow-layout-right": "/pages/goods-all/goods-all-tm-flow-layout-right",
+    "tm-drop-down-menu": "/tm-vuetify/components/tm-dropDownMenu/tm-dropDownMenu",
+    "tm-flow-layout": "/tm-vuetify/components/tm-flowLayout/tm-flowLayout",
+    "tm-images": "/tm-vuetify/components/tm-images/tm-images",
+    "tm-tags": "/tm-vuetify/components/tm-tags/tm-tags",
+    "tm-menu": "/tm-vuetify/components/tm-menu/tm-menu",
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-swiper": "/tm-vuetify/components/tm-swiper/tm-swiper",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button",
+    "tm-flotbutton": "/tm-vuetify/components/tm-flotbutton/tm-flotbutton"
+  }
+}

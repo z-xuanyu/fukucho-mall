@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tm-listitem": "/tm-vuetify/components/tm-listitem/tm-listitem",
+    "tm-mask-flow": "/tm-vuetify/components/tm-maskFlow/tm-maskFlow",
+    "tm-grouplist": "/tm-vuetify/components/tm-grouplist/tm-grouplist"
+  }
+}

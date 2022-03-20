@@ -4,7 +4,7 @@
 		<view class="mt-20 white pa-30">
 			<text class="text-grey text-size-xs">热门搜索</text>
 			<view class="mt-20 flex flex-wrap">
-				<text class="search-tag text-size-xs mx-20 my-10" v-for="item in 3" :key="item">手机</text>
+				<text @click="onClickKeyWord" class="search-tag text-size-xs mx-20 my-10" v-for="item in 3" :key="item">手机</text>
 			</view>
 		</view>
 		<view class="mt-20 white pa-30">
@@ -22,6 +22,13 @@
 			return {
 				value: '',
 			};
+		},
+		methods: {
+			onClickKeyWord() {
+				uni.navigateTo({
+					url: '/pages/goods-all/goods-all'
+				})
+			}
 		}
 	}
 </script>

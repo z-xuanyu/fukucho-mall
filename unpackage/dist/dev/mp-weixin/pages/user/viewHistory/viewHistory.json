@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "浏览记录",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons"
+  }
+}

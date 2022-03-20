@@ -1,0 +1,1 @@
+<view class="px-1 white py-10"><tm-search bind:input="__e" vue-id="bc902084-1" bgColor="white" color="white" placeholder="搜索关键词" insertColor="grey" round="{{25}}" show-right="{{false}}" value="{{value}}" data-event-opts="{{[['^input',[['__set_model',['','value','$event',[]]]]]]}}" bind:__l="__l"></tm-search></view>

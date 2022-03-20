@@ -1,5 +1,11 @@
 import request from "../utils/http/request.js"
 
+
+// 获取所有商品列表
+export function getGoodsAll() {
+	return request.get('product')
+}
+
 // 获取商品详细信息
 export function getGoodsInfo(id){
 	return request.get(`product/${id}`)

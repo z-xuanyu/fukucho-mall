@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "全部订单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-tabs": "/tm-vuetify/components/tm-tabs/tm-tabs",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button"
+  }
+}

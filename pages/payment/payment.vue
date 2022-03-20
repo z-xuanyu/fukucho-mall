@@ -21,7 +21,7 @@
 		</tm-listitem>
 		
 		<view class="fixed b-50 l-20 r-20">
-			<tm-button size="m" :round="24" block>确认支付</tm-button>
+			<tm-button size="m" :round="24" block @click="paySubmit">确认支付</tm-button>
 		</view>
 	</view>
 </template>
@@ -32,6 +32,13 @@
 			return {
 				checked: true,
 			};
+		},
+		methods: {
+			paySubmit() {
+				uni.navigateTo({
+					url: '/pages/user/order/order'
+				})
+			}
 		}
 	}
 </script>

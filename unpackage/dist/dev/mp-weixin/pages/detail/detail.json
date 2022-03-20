@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-sheet": "/tm-vuetify/components/tm-sheet/tm-sheet",
+    "tm-tags": "/tm-vuetify/components/tm-tags/tm-tags",
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-share-sheet": "/tm-vuetify/components/tm-shareSheet/tm-shareSheet",
+    "footer-action-bar": "/pages/detail/components/FooterActionBar",
+    "banner-swiper": "/components/BannerSwiper",
+    "goods-comment": "/pages/detail/components/GoodsComment"
+  }
+}

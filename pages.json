@@ -32,7 +32,8 @@
 		    "path" : "pages/user/user",
 		    "style" :                                                                                    
 		    {
-		        "navigationStyle":"custom",
+		        // "navigationStyle":"custom",
+				"navigationBarTitleText": "个人中心",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -150,6 +151,15 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "全部商品",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/order/evaluation",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评价中心",
                 "enablePullDownRefresh": false
             }
             

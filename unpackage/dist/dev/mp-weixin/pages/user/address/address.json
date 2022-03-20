@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "地址管理",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-radio": "/tm-vuetify/components/tm-radio/tm-radio",
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-empty": "/tm-vuetify/components/tm-empty/tm-empty",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button",
+    "tm-dialog": "/tm-vuetify/components/tm-dialog/tm-dialog",
+    "tm-message": "/tm-vuetify/components/tm-message/tm-message"
+  }
+}

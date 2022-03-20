@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tm-search": "/tm-vuetify/components/tm-search/tm-search"
+  }
+}

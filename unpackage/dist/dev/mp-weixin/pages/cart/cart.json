@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "购物车",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-groupcheckbox": "/tm-vuetify/components/tm-groupcheckbox/tm-groupcheckbox",
+    "tm-checkbox": "/tm-vuetify/components/tm-checkbox/tm-checkbox",
+    "tm-stepper": "/tm-vuetify/components/tm-stepper/tm-stepper",
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button",
+    "tm-dialog": "/tm-vuetify/components/tm-dialog/tm-dialog",
+    "tm-message": "/tm-vuetify/components/tm-message/tm-message"
+  }
+}

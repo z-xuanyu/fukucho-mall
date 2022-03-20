@@ -1,0 +1,1 @@
+<view class="user-page"><base-user-info vue-id="380011e0-1" bind:__l="__l"></base-user-info><user-means-card vue-id="380011e0-2" bind:__l="__l"></user-means-card><user-cell-group vue-id="380011e0-3" bind:__l="__l"></user-cell-group><view class="pa-20"><goods-list vue-id="380011e0-4" list="{{hotGoods}}" bind:__l="__l"></goods-list></view></view>

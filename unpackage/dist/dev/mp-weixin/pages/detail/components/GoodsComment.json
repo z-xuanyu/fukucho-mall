@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tm-listitem": "/tm-vuetify/components/tm-listitem/tm-listitem",
+    "tm-avatar": "/tm-vuetify/components/tm-avatar/tm-avatar",
+    "tm-rate": "/tm-vuetify/components/tm-rate/tm-rate"
+  }
+}

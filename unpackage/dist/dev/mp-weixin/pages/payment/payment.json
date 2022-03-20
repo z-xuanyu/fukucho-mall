@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "支付",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-listitem": "/tm-vuetify/components/tm-listitem/tm-listitem",
+    "tm-radio": "/tm-vuetify/components/tm-radio/tm-radio",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button"
+  }
+}

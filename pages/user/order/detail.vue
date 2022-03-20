@@ -19,47 +19,32 @@
 				<tm-icons size="38" color="black" name="icon-position-fill"></tm-icons>
 				<view class="ml-20 text-size-xs">
 					<view class="mb-10">
-						广东省-广州市-天河区
+						{{ addressInfo.address }}
 					</view>
 					<view class="mb-10">
-						龙洞西大街4号
+						{{ addressInfo.detail }}
 					</view>
 					<view>
-						<text>阿宇</text>
-						<text>15800021934</text>
+						<text>{{ addressInfo.name }}</text>
+						<text>{{ addressInfo.phone }}</text>
 					</view>
 				</view>
 			</view>
 		</tm-sheet>
 		<!-- 商品信息 -->
 		<tm-sheet :shadow="24" :padding="[25,10]">
-			<view class="flex py-20">
-				<image class="goods-img" src="https://img11.360buyimg.com/n1/s450x450_jfs/t1/126847/16/21955/208530/6202422cEad2c824a/669bbf18fad63728.jpg" mode=""></image>
+			<view class="flex py-20" v-for="item in orderInfo.products">
+				<image class="goods-img" :src="item.productId.pic" mode=""></image>
 				<view class="ml-20 text-size-xs flex-1">
 					<view class="mb-10 text-overflow-2">
-						康惠尔颈椎按摩垫全身按摩床垫肩颈背腰腿部按摩床垫靠椅垫家用 升级版-按摩床垫（带头枕）
+						{{ item.productId.title }}
 					</view>
 					<view class="mb-10 ml-10 text-grey">
-						x 2
+						x {{ item.num }}
 					</view>
 					<view class="text-primary mt-40">
 						<text>￥</text>
-						<text class="text-size-g">249</text>
-					</view>
-				</view>
-			</view>
-			<view class="flex py-20">
-				<image class="goods-img" src="https://img11.360buyimg.com/n1/s450x450_jfs/t1/126847/16/21955/208530/6202422cEad2c824a/669bbf18fad63728.jpg" mode=""></image>
-				<view class="ml-20 text-size-xs flex-1">
-					<view class="mb-10 text-overflow-2">
-						康惠尔颈椎按摩垫全身按摩床垫肩颈背腰腿部按摩床垫靠椅垫家用 升级版-按摩床垫（带头枕）
-					</view>
-					<view class="mb-10 ml-10 text-grey">
-						x 2
-					</view>
-					<view class="text-primary mt-40">
-						<text>￥</text>
-						<text class="text-size-g">249</text>
+						<text class="text-size-g">{{ item.price }}</text>
 					</view>
 				</view>
 			</view>
@@ -91,7 +76,7 @@
 			<view class="text-size-s">
 				<view class="mb-20 flex flex-between">
 					<text class="mr-20 text-grey">总计</text>
-					<text>￥498</text>
+					<text>￥{{ orderInfo.totalPrice }}</text>
 				</view>
 				<view class="my-20 flex flex-between">
 					<text class="mr-20 text-grey">优惠</text>
@@ -105,7 +90,7 @@
 					<text class="mr-20">实际实付</text>
 					<view class="text-primary">
 						<text>￥</text>
-						<text class="text-size-g">498</text>
+						<text class="text-size-g">{{ orderInfo.totalPrice }}</text>
 					</view>
 				</view>
 			</view>
@@ -113,7 +98,7 @@
 		
 		<view class="fixed b-0 r-0 l-0 white pa-20">
 			<view class="flex flex-between">
-				<view class="flex flex-col items-center pl-20">
+				<view class="flex flex-col items-center pl-20" @click="jumpHome">
 					<tm-icons size="40" color="black" name="icon-home"></tm-icons>
 					<text class="text-size-s mt-2">首页</text>
 				</view>
@@ -127,11 +112,28 @@
 </template>
 
 <script>
+	import { getOderInfo } from "../../../api/order.js"
 	export default {
 		data() {
 			return {
-
+				orderInfo: '',
+				addressInfo: '',
 			};
+		},
+		onLoad(option) {
+			this.fetchData(option.id);
+		},
+		methods: {
+			async fetchData(id) {
+				const res = await getOderInfo(id);
+				this.orderInfo = res;
+				this.addressInfo = res.addressId;
+			},
+			jumpHome() {
+				uni.switchTab({
+					url: '/pages/index/index'
+				})
+			}
 		}
 	}
 </script>

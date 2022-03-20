@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "编辑地址",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-form": "/tm-vuetify/components/tm-form/tm-form",
+    "tm-input": "/tm-vuetify/components/tm-input/tm-input",
+    "tm-pickers-city": "/tm-vuetify/components/tm-pickersCity/tm-pickersCity",
+    "tm-switch": "/tm-vuetify/components/tm-switch/tm-switch",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button",
+    "tm-message": "/tm-vuetify/components/tm-message/tm-message"
+  }
+}

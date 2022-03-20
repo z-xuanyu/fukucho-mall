@@ -14,7 +14,7 @@ http.setConfig((config) => {
 
 /* 请求之前拦截器。可以使用async await 做异步操作 */
 http.interceptors.request.use((config) => {
-   const token = uni.getStorageSync('token') || null;
+	const token = uni.getStorageSync('token') || null;
 	// 获取token
 	config.header = {
 		...config.header,
@@ -52,8 +52,8 @@ http.interceptors.response.use(async (response) => {
 		icon: 'none'
 	})
 	return Promise.reject(response)
-}, (response) => {
-	switch (response.statusCode) {
+}, (error) => {
+	switch (error.statusCode) {
 		// 提示登录
 		case 401:
 			uni.navigateTo({
@@ -61,14 +61,16 @@ http.interceptors.response.use(async (response) => {
 			})
 			break;
 		default:
+			uni.showToast({
+				title: '网络超时，请重试!',
+				icon: 'none'
+			})
 			break;
 	}
-	
-	
-	if (response.config.custom.loading) {
+	if (error.config.custom.loading) {
 		uni.hideLoading()
 	}
-	return Promise.reject(response)
+	return Promise.reject(error)
 })
 
 export default http;

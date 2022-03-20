@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "base-user-info": "/pages/user/components/BaseUserInfo",
+    "user-means-card": "/pages/user/components/UserMeansCard",
+    "user-cell-group": "/pages/user/components/UserCellGroup",
+    "goods-list": "/components/GoodsList"
+  }
+}

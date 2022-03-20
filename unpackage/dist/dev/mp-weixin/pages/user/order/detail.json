@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-sheet": "/tm-vuetify/components/tm-sheet/tm-sheet",
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-countdown": "/tm-vuetify/components/tm-countdown/tm-countdown",
+    "tm-button": "/tm-vuetify/components/tm-button/tm-button"
+  }
+}

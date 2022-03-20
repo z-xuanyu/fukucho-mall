@@ -2,57 +2,80 @@
 	<view class="order-page">
 		<tm-tabs v-model="activeIndex" :list="list" ></tm-tabs>
 		<view class="pa-20">
-			<view class="pa-20 px-30 white round-2 mb-20" v-for="item in 5" :key="item">
-				<view class="flex" @click="jumpOrderDetail">
+			<view class="pa-20 px-30 white round-2 mb-20" v-for="item in orderList" :key="item._id">
+				<view class="flex py-20" @click="jumpOrderDetail(item._id)" v-for="goods in item.products" :key="goods._id">
 					<image
-						src="https://img11.360buyimg.com/n1/s450x450_jfs/t1/126847/16/21955/208530/6202422cEad2c824a/669bbf18fad63728.jpg"
+						:src="goods.productId.pic"
 						mode=""></image>
 					<view class="flex-1 ml-20">
 						<view class="text-size-xs text-overflow-2">
-							康惠尔颈椎按摩垫全身按摩床垫肩颈背腰腿部按摩床垫靠椅垫家用 升级版-按摩床垫（带头枕）
+							{{ goods.productId.title }}
 						</view>
 						<view class="text-size-xs mt-20 text-gray">
 							<text>x 1</text>
-							<text class="ml-20">黑色</text>
+							<text class="ml-20">{{ goods.skuName }}</text>
 						</view>
 						<view class="mt-20 text-primary">
 							<text class="text-size-xs">￥</text>
-							<text>4299</text>
+							<text>{{ goods.price }}</text>
 						</view>
 					</view>
 				</view>
 				<view class="text-align-right">
 					<text class="text-size-xs">实际付款</text>
 					<text class="text-size-xs ml-20">￥</text>
-					<text>4299</text>
+					<text>{{ item.totalPrice }}</text>
 				</view>
 				<view class="flex flex-between mt-20 items-center">
 					<text class="text-size-xs text-grey">待付款</text>
 					<view class="flex">
-						<tm-button theme="grey" size="xs" :round="24">取消</tm-button>
+						<tm-button theme="grey" size="xs" :round="24" @click="showCancelOrderModal = true; orderId = item._id">取消</tm-button>
 						<tm-button theme="primary" size="xs" :round="24">立即支付</tm-button>
 					</view>
 				</view>
 			</view>
-
 		</view>
+		<!-- 取消 -->
+		<tm-dialog style="height: 100%;" v-model="showCancelOrderModal" content="您确认要取消该订单?" @confirm="confirmCancelOrder" theme="split"></tm-dialog>
+		<tm-message ref="toast"></tm-message>
+		<!-- 空数据 -->
+		<template v-if="!orderList.length">
+			<tm-empty color="black" icon="../../../static/images/empty/list.png" label="暂无订单数据" :size="600" />
+		</template>
 	</view>
 </template>
 
 <script>
+	import { getUserOrders, cancelOder } from "../../../api/order.js"
 	export default {
 		name: 'UserOrder',
 		data() {
 			return {
 				activeIndex: 0,
-				list: ['全部', '待付款', '待发货', '待收货', '待评价']
+				orderId: null,
+				list: ['全部', '待付款', '待发货', '待收货', '待评价'],
+				orderList: [],
+				showCancelOrderModal: false,
 			};
 		},
+		onShow() {
+			this.fetchData();
+		},
 		methods: {
-			jumpOrderDetail() {
+			async fetchData(){
+				const res = await getUserOrders();
+				this.orderList = res;
+			},
+			jumpOrderDetail(id) {
 				uni.navigateTo({
-					url: '/pages/user/order/detail'
+					url: `/pages/user/order/detail?id=${id}`
 				})
+			},
+			// 取消订单提交
+			async confirmCancelOrder() {
+				await cancelOder(this.orderId);
+				this.fetchData();
+				this.$refs.toast.show({model:'success', label: '取消成功'})
 			}
 		}
 	}

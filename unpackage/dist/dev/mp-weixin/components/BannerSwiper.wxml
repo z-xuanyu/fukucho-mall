@@ -1,0 +1,1 @@
+<view><tm-swiper vue-id="55b2c547-1" autoplay="{{false}}" height="{{heigth}}" dot-model="round" dot-direction="right" indicator-dots="{{true}}" list="{{list}}" bind:__l="__l"></tm-swiper></view>

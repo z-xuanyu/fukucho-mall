@@ -1,0 +1,14 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tm-sticky": "/tm-vuetify/components/tm-sticky/tm-sticky",
+    "tm-menubars": "/tm-vuetify/components/tm-menubars/tm-menubars",
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-swiper": "/tm-vuetify/components/tm-swiper/tm-swiper",
+    "search-bar": "/pages/index/components/SearchBar",
+    "nav-icon-grid": "/components/NavIconGrid",
+    "goods-card": "/components/GoodsCard",
+    "goods-list": "/components/GoodsList"
+  }
+}

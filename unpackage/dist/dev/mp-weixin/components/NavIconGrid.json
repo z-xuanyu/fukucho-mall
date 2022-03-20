@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tm-scroll": "/tm-vuetify/components/tm-scroll/tm-scroll",
+    "tm-row": "/tm-vuetify/components/tm-row/tm-row",
+    "tm-col": "/tm-vuetify/components/tm-col/tm-col",
+    "tm-images": "/tm-vuetify/components/tm-images/tm-images"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tm-icons": "/tm-vuetify/components/tm-icons/tm-icons",
+    "tm-poup": "/tm-vuetify/components/tm-poup/tm-poup",
+    "tm-tags": "/tm-vuetify/components/tm-tags/tm-tags",
+    "tm-stepper": "/tm-vuetify/components/tm-stepper/tm-stepper",
+    "tm-message": "/tm-vuetify/components/tm-message/tm-message"
+  }
+}

@@ -37,7 +37,7 @@
 			</view>
 		</tm-groupcheckbox>
 		<!-- 操作 -->
-		<view class="fixed r-0 l-0 white zIndex-10 border-b-1" style="bottom: 50px;">
+		<view class="fixed cart-action-bar r-0 l-0 white zIndex-10 border-b-1">
 			<view class="flex flex-between items-center px-20 py-10">
 				<view @click="changeCheAll">
 					<tm-groupcheckbox>
@@ -59,6 +59,12 @@
 		<!-- 提示modal -->
 		<tm-dialog v-model="isShowDelModal" content="您确认要移除该商品？" @confirm="handleDelConfirm" theme="split"></tm-dialog>
 		<tm-message ref="toast"></tm-message>
+		<!-- 空数据 -->
+		<template v-if="!list.length && !isLoading">
+			<tm-empty color="black" label="空空如也,去选购一下吧!" icon="../../static/images/empty/cart.png" :size="600">
+				<tm-button theme="primary" @click='jumpGoodsAll'>去选购</tm-button>
+			</tm-empty>
+		</template>
 	</view>
 </template>
 
@@ -70,6 +76,7 @@
 				cartInfoId: null,
 				checkAll: true,
 				isShowDelModal: false,
+				isLoading: true,
 				list: []
 			};
 		},
@@ -85,6 +92,7 @@
 						checked: true,
 					}
 				})
+				this.isLoading = false,
 				uni.setTabBarBadge({
 				  index: 2,
 				  text: `${res.length}`
@@ -127,6 +135,12 @@
 			// 全选改变
 			changeCheAll(){
 				this.list.forEach(item=> item.checked = this.checkAll)
+			},
+			// 跳转所有商品
+			jumpGoodsAll() {
+				uni.navigateTo({
+					url: '/pages/goods-all/goods-all'
+				})
 			}
 		},
 		computed: {
@@ -142,7 +156,13 @@
 
 <style lang="scss">
 	.cart-page {
-		min-height: calc(100vh - 94px);
+		//#ifdef H5
+		 min-height: calc(100vh - 94px);
+		//#endif
+		//#ifdef MP
+		 min-height: calc(100vh - 54px);
+		//#endif
+		
 		background-color: #f6f6f6;
 
 		.align-items {
@@ -161,10 +181,14 @@
 			.right {
 				flex: 1;
 			}
-		}
-
-		.buy-btn {
-			padding: 25rpx 20rpx;
+		}		
+		.cart-action-bar{
+			//#ifdef H5
+			 bottom: 44px;
+			//#endif
+			//#ifdef MP
+			 bottom: 0;
+			//#endif
 		}
 	}
 </style>
