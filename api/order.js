@@ -6,8 +6,10 @@ export function craateOrder(data){
 }
 
 // 获取用户订单列表
-export function getUserOrders() {
-	return request.get('order')
+export function getUserOrders(params) {
+	return request.get('order',{
+		params
+	})
 }
 
 // 获取订单信息
@@ -18,4 +20,9 @@ export function getOderInfo(id) {
 // 取消订单
 export function cancelOder(id) {
 	return request.delete(`order/${id}`)
+}
+
+// 确认收货
+export function confirmTake(id) {
+	return request.put(`order/${id}/take`)
 }

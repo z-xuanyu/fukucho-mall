@@ -164,6 +164,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/payment/success",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "支付成功",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#C0C4CC",

@@ -2,7 +2,7 @@
 	<view class="bg-white m-2 round-2">
 
 		<tm-sheet :shadow="24" :padding="[0,10]">
-			<tm-listitem @click="onHistoryCell"  title="我的足迹" value="10" :show-left-icon="true">
+			<tm-listitem @click="onHistoryCell"  title="我的足迹" :value="String(viewsHistory.length)" :show-left-icon="true">
 				<template v-slot:left>
 					<image class="zuji-icon" src="../../../static/images/user/zuji.png" mode=""></image>
 				</template>

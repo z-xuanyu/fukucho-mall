@@ -37,7 +37,7 @@
 				<view class="pa-20 relative">
 					<view class="flex">
 						<view class="goods-img">
-							<image src="http://nestshop.oss-cn-shenzhen.aliyuncs.com/images/0220307182009.png" mode=""></image>
+							<image :src="info.pic" mode=""></image>
 						</view>
 						<view class="ml-10 mt-20">
 							<view class="price text-primary">
@@ -130,7 +130,18 @@
 				// this.$emit('addCart', [])
 			},
 			onClickBuyNow() {
-				this.$emit('buyNow', [])
+				const data = {
+					productId: this.info._id,
+					num: this.num,
+					price: this.info.price,
+					skuName: '500ml',
+					title: this.info.title,
+					pic: this.info.pic
+				}
+				uni.setStorageSync('selectProductInfo', data);
+				uni.navigateTo({
+					url: '/pages/create-order/create-order?type=1'
+				})
 			},
 			// 点击收藏商品
 			async onClickColletionGodds() {

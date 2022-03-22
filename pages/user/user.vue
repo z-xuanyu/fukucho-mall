@@ -3,7 +3,7 @@
 		<BaseUserInfo />
 		<!-- 用户功能菜单 -->
 		<UserMeansCard />
-		<UserCellGroup />
+		<UserCellGroup ref="userCellRef" />
 		<view class="pa-20">
 			<GoodsList :list="hotGoods" />
 		</view>
@@ -26,11 +26,14 @@
 		data() {
 			return {
 				hotGoods:[],
-				viewsHistory: []
 			};
 		},
 		onShow() {
 			this.fetchHotProduct();
+			// 刷新纪录列表
+			this.$nextTick(()=>{
+				this.$refs.userCellRef.fetchViewsHistory()
+			})
 		},
 		methods: {
 			async fetchHotProduct() {

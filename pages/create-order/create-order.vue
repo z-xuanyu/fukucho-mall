@@ -19,22 +19,43 @@
 		</tm-listitem>
 		<!-- 商品信息 -->
 		<view class="goods-info mt-20 round-2 pa-20 white shadow-5">
-			<view class="flex my-25" v-for="item in selectCartList" :key="item._id">
-				<view class="goods-info__img">
-					<image :src="item.productId.pic" mode=""></image>
+			<template v-if="!type">
+				<view class="flex my-25" v-for="item in selectCartList" :key="item._id">
+					<view class="goods-info__img">
+						<image :src="item.productId.pic" mode=""></image>
+					</view>
+					<view class="flex-1">
+						<view class="text-overflow-2 text-size-xs">
+							{{ item.productId.title }}
+						</view>
+						<view class="num text-size-xs text-grey my-30">
+							x {{ item.num }}
+						</view>
+						<view class="price text-primary">
+							<text class="text-size-xs">￥</text><text>{{ item.price }}</text>
+						</view>
+					</view>
 				</view>
-				<view class="flex-1">
-					<view class="text-overflow-2 text-size-xs">
-						{{ item.productId.title }}
+			</template>
+			<!-- 立即购买 -->
+			<template v-else>
+				<view class="flex my-25">
+					<view class="goods-info__img">
+						<image :src="productInfo.pic" mode=""></image>
 					</view>
-					<view class="num text-size-xs text-grey my-30">
-						x {{ item.num }}
-					</view>
-					<view class="price text-primary">
-						<text class="text-size-xs">￥</text><text>{{ item.price }}</text>
+					<view class="flex-1 ml-20">
+						<view class="text-overflow-2 text-size-xs">
+							{{ productInfo.title }}
+						</view>
+						<view class="num text-size-xs text-grey my-30">
+							x {{ productInfo.num }}
+						</view>
+						<view class="price text-primary">
+							<text class="text-size-xs">￥</text><text>{{ productInfo.price }}</text>
+						</view>
 					</view>
 				</view>
-			</view>
+			</template>
 		</view>
 		<!-- 优惠券 -->
 		<view class="white round-2 mt-20">
@@ -85,8 +106,10 @@
 	export default {
 		data() {
 			return {
-				addressInfo: '',
+				type: 0, // 0：购物车下单，1：立即下单
+				addressInfo: {},
 				selectCartList: [],
+				productInfo: {},
 				showCoupon: false,
 				d_1: {
 					sale: '50',
@@ -94,16 +117,23 @@
 					saleLable: '买满79元可用',
 					title: '满79减15元券',
 					time: '2021.11.11-2021.11.12 15:00:00',
-					btnText: '去使用',
+					btnText: '领取',
 					label: '说明：优惠券说明优惠券说明优'
 				},
 				remark: '',
 			};
 		},
+		onLoad(option) {
+			this.type = option.type
+		},
 		onShow() {
 			const selectCartList = uni.getStorageSync('selectCartList');
+			const selectProductInfo = uni.getStorageSync('selectProductInfo');
 			if(selectCartList) {
 				this.selectCartList = selectCartList;
+			}
+			if(selectProductInfo) {
+				this.productInfo = selectProductInfo;
 			}
 		},
 		created() {
@@ -121,21 +151,45 @@
 			},
 			// 提交订单
 			async submitOrder() {
-				if(!this.selectCartList.length) return uni.showToast({
+				if(!this.selectCartList.length && !this.type) return uni.showToast({
 					title: '购物车信息不存在',
 					icon: 'none'
 				})
-				await craateOrder({ 
-					cartIds: this.selectCartList.map(item=> item._id),
-					addressId: this.addressInfo._id,
-					source: 'H5',
-					totalPrice: this.totalPrice,
-					payment: this.totalPrice,
-					remark: this.remark,
-				})
+				let orderData;
+				// 立即购买
+				if(this.type){
+					orderData = await craateOrder({
+						products: [
+							{
+								productId: this.productInfo.productId,
+								num: this.productInfo.num,
+								price: this.productInfo.price,
+								skuName: this.productInfo.skuName,
+							}
+						],
+						addressId: this.addressInfo._id,
+						source: 'H5',
+						totalPrice: this.productInfo.price,
+						payment: this.productInfo.price,
+						remark: this.remark,
+						way:1
+					})
+				}else {
+					// 购物车清算
+					orderData = await craateOrder({
+						cartIds: this.selectCartList.map(item=> item._id),
+						addressId: this.addressInfo._id,
+						source: 'H5',
+						totalPrice: this.totalPrice,
+						payment: this.totalPrice,
+						remark: this.remark,
+					})
+				}
+				
 				uni.removeStorageSync('selectCartList');
+				uni.removeStorageSync('selectProductInfo');
 				uni.navigateTo({
-					url: '/pages/payment/payment'
+					url: `/pages/payment/payment?id=${orderData._id}`
 				})
 			}
 		},
