@@ -26,3 +26,12 @@ export function cancelOder(id) {
 export function confirmTake(id) {
 	return request.put(`order/${id}/take`)
 }
+
+
+export function submitOrderComment(data) {
+	return request.post('product-comment', data, {
+		header: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
+	})
+}

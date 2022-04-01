@@ -81,13 +81,13 @@
 							mode="aspectFill"></image>
 					</view>
 				</tm-sheet>
-				
+
 			</view>
 		</view>
 		<!-- 底部操作栏 -->
 		<FooterActionBar :info="info" />
 		<!-- 面板 -->
-		<tm-shareSheet @change="onClickShareSheet"  v-model="showShare"></tm-shareSheet>
+		<tm-shareSheet @change="onClickShareSheet" v-model="showShare"></tm-shareSheet>
 		<!-- 优惠券弹出层 -->
 		<tm-poup v-model="showCoupon" :height='400' position="bottom">
 			<view class="ma-32 ">
@@ -101,6 +101,7 @@
 	import FooterActionBar from "./components/FooterActionBar.vue"
 	import BannerSwiper from "../../components/BannerSwiper.vue"
 	import GoodsComment from "./components/GoodsComment.vue"
+	import GoodsSkuPopup from "./components/GoodsSkuPopup.vue"
 	import {
 		getGoodsInfo
 	} from "../../api/goods.js"
@@ -109,12 +110,19 @@
 			FooterActionBar,
 			BannerSwiper,
 			GoodsComment,
+			GoodsSkuPopup
 		},
 		onLoad(option) {
 			this.fetchData(option.id);
 		},
 		data() {
 			return {
+				// 是否打开SKU弹窗
+				skuKey: false,
+				// SKU弹窗模式
+				skuMode: 1,
+				// 后端返回的商品信息
+				goodsInfo: {},
 				info: '',
 				showShare: false,
 				showSku: true,
@@ -128,6 +136,96 @@
 					btnText: '去使用',
 					label: '说明：优惠券说明优惠券说明优'
 				},
+
+				openSkuPopup() {
+					/**
+					 * 获取商品信息
+					 * 这里可以看到每次打开SKU都会去重新请求商品信息,为的是每次打开SKU组件可以实时看到剩余库存
+					 */
+					// 此处写接口请求，并将返回的数据进行处理成goodsInfo的数据格式，
+					// goodsInfo是后端返回的数据
+					this.goodsInfo = {
+						"_id": "002",
+						"name": "迪奥香水",
+						"goods_thumb": "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
+						"sku_list": [{
+								"_id": "004",
+								"goods_id": "002",
+								"goods_name": "迪奥香水",
+								"image": "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
+								"price": 19800,
+								"sku_name_arr": ["50ml/瓶"],
+								"stock": 100
+							},
+							{
+								"_id": "005",
+								"goods_id": "002",
+								"goods_name": "迪奥香水",
+								"image": "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
+								"price": 9800,
+								"sku_name_arr": ["70ml/瓶"],
+								"stock": 100
+							}
+						],
+						"spec_list": [{
+							"list": [{
+									"name": "20ml/瓶"
+								},
+								{
+									"name": "50ml/瓶"
+								},
+								{
+									"name": "70ml/瓶"
+								}
+							],
+							"name": "规格"
+						}]
+					}
+					this.skuKey = true;
+				},
+				// sku组件 开始-----------------------------------------------------------
+				onOpenSkuPopup() {
+					console.log("监听 - 打开sku组件");
+				},
+				SkuPopup() {
+					console.log("监听 - 关闭sku组件");
+				},
+				// 加入购物车前的判断
+				addCartFn(obj) {
+					let {
+						selectShop
+					} = obj;
+					// 模拟添加到购物车,请替换成你自己的添加到购物车逻辑
+					let res = {};
+					let name = selectShop.goods_name;
+					if (selectShop.sku_name != "默认") {
+						name += "-" + selectShop.sku_name_arr;
+					}
+					res.msg = `${name} 已添加到购物车`;
+					if (typeof obj.success == "function") obj.success(res);
+				},
+				// 加入购物车按钮
+				addCart(selectShop) {
+					console.log()
+				},
+				// 立即购买
+				buyNow(selectShop) {
+				  const that = this;
+				 console.log("监听 - 立即购买");
+					that.addCartFn({
+						selectShop: selectShop,
+						success: function(res) {
+							// 实际业务时,请替换自己的立即购买逻辑
+				 		that.toast("立即购买");
+						}
+					});
+				},
+				toast(msg) {
+				 uni.showToast({
+						title: msg,
+						icon: "none"
+					});
+				}
 			};
 		},
 		methods: {
@@ -135,7 +233,7 @@
 				const result = await getGoodsInfo(id);
 				this.info = result;
 			},
-			onClickShare(){
+			onClickShare() {
 				this.showShare = !this.showShare;
 			},
 			onClickShareSheet(value) {
@@ -154,7 +252,8 @@
 			border-radius: 30rpx;
 			margin-right: 5rpx;
 		}
-		.cell-label{
+
+		.cell-label {
 			width: 100rpx;
 			display: inline-block;
 		}

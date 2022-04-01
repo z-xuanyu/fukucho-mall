@@ -148,9 +148,9 @@ class uploadfile {
 				name:t.config.opts?.name??'file',
 				header:t.config.opts?.header??{},
 				filePath:item.url,
-				
+                 
 				success:(res)=>{
-					if(res.statusCode !=200){
+					if(![200,201].includes(res.statusCode)){
 						item.statusCode = 2;
 						item.status = "上传失败";
 						uni.$tm.toast(String(res.statusCode))

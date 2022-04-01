@@ -45,7 +45,7 @@
 							<tm-button theme="primary" size="xs" :round="24" @click="showConfirmTakeModal = true; orderId = item._id">确认收货</tm-button>
 						</template>
 						<template v-if="item.status === 4">
-							<tm-button theme="primary" size="s" plan :round="24" @click="handleRemindDelivery">评价</tm-button>
+							<tm-button theme="primary" size="s" plan :round="24" @click="handleComment(item)">评价</tm-button>
 						</template>
 					</view>
 				</view>
@@ -125,6 +125,12 @@
 				this.fetchData();
 				this.$refs.toast.show({model:'success', label: '确认成功'});
 				
+			},
+			// 处理点击评论
+			handleComment(item) {
+				uni.navigateTo({
+					url: `/pages/user/order/evaluation?id=${item._id}&productId=${item.products[0].productId._id}`
+				})
 			}
 		},
 		filters: {
