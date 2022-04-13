@@ -1,13 +1,16 @@
 <template>
-	<view class="pa-20 category-page">
-		<view class="content flex">
+	<view class="category-page">
+		<view class="py-12 white">
+			<tm-search v-model="keyword"  bgColor="white" color="white" placeholder="搜索关键词" insertColor="grey" :round="25" :show-right="false"></tm-search>
+		</view>
+		<view class="content flex px-20">
 			<view class="left pa-3">
 				<view class="flex flex-col">
-					<text class="my-30" :class="item == 1 && 'active'" v-for="item in 6" :key="item">清酒</text>
+					<text class="my-30" :class="item == 1 && 'active primary'" v-for="item in 6" :key="item">清酒</text>
 				</view>
 				
 			</view>
-			<view class="right flex-1 pl-30 mt-20">
+			<view class="right flex-1 pl-30">
 				<view class="white flex flex-wrap px-30 pb-50 round-2">
 					<view class="item">
 						<image src="https://img15.shop-pro.jp/PA01085/674/product/163522767.jpg?cmsp_timestamp=20210929162906" mode=""></image>
@@ -56,17 +59,19 @@
 		.content {
 			.left {
 				text {
-					color: #aaaaaa;
 					font-weight: 200;
 					cursor: pointer;
+					padding: 10rpx 26rpx;
+					
 				}
 				.active{
-					color: #f56c6c;
 					font-weight: 600;
-					font-size: 40rpx;
+					color: white;
+					border-radius: 50rpx;
 				}
 			}
 			.right{
+				height: 100%;
 				.item{
 					margin-top: 50rpx;
 					width: 33%;

@@ -33,7 +33,7 @@
 		</tm-sheet>
 		<!-- 商品信息 -->
 		<tm-sheet :shadow="24" :padding="[25,10]">
-			<view class="flex py-20" v-for="item in orderInfo.products">
+			<view class="flex py-20" v-for="item in orderInfo.products" :key="item._id">
 				<image class="goods-img" :src="item.productId.pic" mode=""></image>
 				<view class="ml-20 text-size-xs flex-1">
 					<view class="mb-10 text-overflow-2">

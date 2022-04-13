@@ -1,32 +1,20 @@
 <template>
 	<view class="user-means">
-		<view class="flex flex-around text-align-center">
-			<view v-for="item in 4" :key="item" class="my-40">
-				<view class="text-size-g">
-					3
-				</view>
-				<view class="text-size-xs mt-5">
-					优惠券
-				</view>
-			</view>
-		</view>
-
-		<view class="user-vip-card mx-40 pa-20">
-			<view class="flex flex-between">
-				<view class="flex">
-					<tm-icons :size="48" name="icon-gem"></tm-icons>
-					<view class="ml-20">
-						会员立享5大权益！
+		<tm-sheet :padding="[0,0]" :shadow="10">
+			<view class="flex flex-around text-align-center">
+				<view v-for="(item, index) in navList" :key="index + 'c'" class="my-40">
+					<view class="text-weight-b text-size-lg">
+						{{ item.num }}
+					</view>
+					<view class="mt-5">
+						{{ item.text }}
 					</view>
 				</view>
-				<view>
-					<tm-button theme="primary" :round="20" size="xs">立即开通</tm-button>
-				</view>
 			</view>
-		</view>
-		<tm-sheet :shadow="24">
+		</tm-sheet>
+		<tm-sheet :shadow="10" :padding="[0,0]">
 			<tm-listitem title="我的订单" @click="jumpOrderList" :margin="[0,0]" left-icon="icon-database" show-left-icon left-icon-color="pink" value="查看全部"></tm-listitem>
-			<tm-grid @click-dot="iconClick" @change="change" color="blue" :list="list"></tm-grid>
+			<tm-grid @click-dot="iconClick" @change="change" :grid="5" :maxGrid="10" color="blue" :list="list"></tm-grid>
 		</tm-sheet>
 	</view>
 </template>
@@ -35,6 +23,24 @@
 	export default {
 		data() {
 			return {
+				navList: [
+					{
+						text: '我的余额',
+						num: '188.00',
+					},
+					{
+						text: '我的积分',
+						num: 6574,
+					},
+					{
+						text: '我的优惠券',
+						num: 5,
+					},
+					{
+						text: '我的收藏',
+						num: 65,
+					}
+				],
 				list: [{
 						icon: 'icon-QQ',
 						text: '待支付',

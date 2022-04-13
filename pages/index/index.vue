@@ -2,30 +2,28 @@
 	<view class="home-page">
 		<!-- 顶部状态栏 -->
 		<tm-sticky :top="0">
-			<tm-menubars title="FUKUCHO" color="white">
-				<template #left>
-					<tm-icons size="45" class="ml-20" color="grey" name="icon-position"></tm-icons>
-				</template>
-				<template #right>
-					<tm-icons size="40" color="grey" name="icon-aliwangwang"></tm-icons>
-					<tm-icons size="45" class="mx-20" color="grey" name="icon-bell"></tm-icons>
-				</template>
-			</tm-menubars>
-			<!--搜索 -->
 			<SearchBar />
 		</tm-sticky>
 
 		<view class="bg-white my-20">
 			<!-- banner -->
-			<tm-swiper :round="6" :margin="20" :autoplay="false" :height="600" dot-model="round" dot-direction="right" :indicator-dots="true" :list="banners"></tm-swiper>
+			<tm-swiper :round="6" :margin="20" :autoplay="false" :height="420" dot-model="round" dot-direction="right"
+				:indicator-dots="true" :list="banners"></tm-swiper>
 			<!-- 图标导航 -->
-			<NavIconGrid />
+			<NavIconGrid :list="navigations" />
 		</view>
-		<GoodsCard :list="hotProducts" />
-		<view class="ma-10 mt-30">
-			<GoodsList :list="hotProducts" />
+		<view class="ma-20">
+			<SwiperTips />
 		</view>
-		<view class="ma-10 mt-30">
+		<!-- 限时秒杀 -->
+		<SeckillGoodsCard :list="hotProducts" />
+		<!-- 直播间 -->
+		<LiveRoomCard />
+		<!-- 优惠券 -->
+		<CouponsCard />
+		<!-- 促销精品商品 -->
+		<PromotionGoods :list="hotProducts" />
+		<view class="ma-10 mt-10">
 			<GoodsList :list="hotProducts" />
 		</view>
 	</view>
@@ -34,8 +32,13 @@
 <script>
 	import SearchBar from "./components/SearchBar.vue";
 	import NavIconGrid from "../../components/NavIconGrid.vue"
-	import GoodsCard from "../../components/GoodsCard.vue"
 	import GoodsList from "../../components/GoodsList.vue"
+	import SwiperTips from "./components/SwiperTips.vue"
+	import SeckillGoodsCard from "./components/SeckillGoodsCard.vue"
+	import LiveRoomCard from "./components/LiveRoomCard.vue"
+	import CouponsCard from "./components/CouponsCard.vue"
+	import PromotionGoods from "./components/PromotionGoods.vue"
+	
 	import {
 		getHomeData
 	} from "../../api/home.js"
@@ -43,8 +46,12 @@
 		components: {
 			SearchBar,
 			NavIconGrid,
-			GoodsCard,
-			GoodsList
+			GoodsList,
+			SwiperTips,
+			SeckillGoodsCard,
+			LiveRoomCard,
+			CouponsCard,
+			PromotionGoods
 		},
 		onPageScroll(e) {
 			this.scrollTop = e.scrollTop;
@@ -56,6 +63,7 @@
 			return {
 				scrollTop: 0,
 				banners: [],
+				navigations: [],
 				hotProducts: [],
 				tabList: [{
 						name: '精选'
@@ -78,13 +86,13 @@
 				const result = await getHomeData();
 				this.banners = result.banners.map(item => item.image);
 				this.hotProducts = result.hotProducts;
+				this.navigations = result.navigations.map(item => ({
+					text: item.name,
+					icon: item.pic,
+					url: item.pagePath
+				}));
 			},
-			rightClick() {
-
-			},
-			handleClickTab() {
-
-			}
+			iconClick() {}
 		}
 	}
 </script>
