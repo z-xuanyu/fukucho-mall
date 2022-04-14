@@ -1,6 +1,6 @@
 <template>
 	<view class="collection-page pa-20">
-		<view class="white round-2 pa-20 mb-20 flex" v-for="item in 3" :key="item">
+		<view class="white round-4 shadow-10 pa-20 mb-20 flex" v-for="item in 3" :key="item">
 			<view class="goods-img">
 				<image src="https://img20.360buyimg.com/seckillcms/s140x140_jfs/t1/89359/21/21509/129598/62147e87E1942c4f3/c383fb511b9e7368.jpg.webp" mode="widthFix"></image>
 			</view>

@@ -1,7 +1,7 @@
 <template>
 	<view class="cart-page px-20 py-10">
 		<tm-groupcheckbox @change="groupCheckboxChange">
-			<view class="mt-20 round-4 overflow shadow-5" v-for="item in list" :key="item._id">
+			<view class="mt-20 round-4 overflow shadow-10" v-for="item in list" :key="item._id">
 				<view class="fulled white">
 					<view class="flex align-items round-2">
 						<view class="ml-10">
@@ -10,9 +10,7 @@
 						</view>
 						<view class="goods-info py-30 pr-10">
 							<view class="flex">
-								<image
-									:src="item.productId.pic"
-									mode="aspectFit"></image>
+								<image :src="item.productId.pic" mode="aspectFit"></image>
 								<view class="right">
 									<view class="text-overflow-2 text-size-m">
 										{{ item.productId.title }}
@@ -25,9 +23,10 @@
 											<text class="text-size-g">￥</text><text>{{ item.price }}</text>
 										</view>
 										<!-- <tm-stepper :width="150" :height="38" v-model="word" :step="10" :round="25"></tm-stepper> -->
-										<tm-stepper circular v-model="item.num" :width="120" :height="38" :min="0" :max="10"
-											:step="1" :round="24"></tm-stepper>
-										<tm-icons size="32" class="mr-10" name="icon-delete-fill" color="grey" @click="handleClickDel(item._id)" />
+										<tm-stepper circular v-model="item.num" :width="120" :height="38" :min="0"
+											:max="10" :step="1" :round="24"></tm-stepper>
+										<tm-icons size="32" class="mr-10" name="icon-delete-fill" color="grey"
+											@click="handleClickDel(item._id)" />
 									</view>
 								</view>
 							</view>
@@ -55,7 +54,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 提示modal -->
 		<tm-dialog v-model="isShowDelModal" content="您确认要移除该商品？" @confirm="handleDelConfirm" theme="split"></tm-dialog>
 		<tm-message ref="toast"></tm-message>
@@ -69,7 +68,10 @@
 </template>
 
 <script>
-	import { getCartList, removeCartInfo } from "../../api/cart.js"
+	import {
+		getCartList,
+		removeCartInfo
+	} from "../../api/cart.js"
 	export default {
 		data() {
 			return {
@@ -86,17 +88,21 @@
 		methods: {
 			async fetchData() {
 				const res = await getCartList();
-				this.list = res.map(item=> {
+				this.list = res.map(item => {
 					return {
 						...item,
 						checked: true,
 					}
 				})
-				this.isLoading = false,
-				uni.setTabBarBadge({
-				  index: 2,
-				  text: `${res.length}`
-				})
+				this.isLoading = false;
+				const cartCount = res.length;
+				if (cartCount) {
+					uni.setTabBarBadge({
+						index: 2,
+						text: `${cartCount}`
+					})
+				}
+
 			},
 			checkboxChange() {
 
@@ -109,7 +115,10 @@
 			// 确认删除
 			async handleDelConfirm() {
 				await removeCartInfo(this.cartInfoId)
-				this.$refs.toast.show({model:'success', label: '删除成功'})
+				this.$refs.toast.show({
+					model: 'success',
+					label: '删除成功'
+				})
 				this.fetchData();
 			},
 			// 取消删除
@@ -118,23 +127,23 @@
 			},
 			// 跳转创建订单
 			jumpCreateOrder() {
-				const selectCartList = this.list.filter(item=> item.checked);
+				const selectCartList = this.list.filter(item => item.checked);
 				uni.setStorageSync('selectCartList', selectCartList);
 				uni.navigateTo({
 					url: '/pages/create-order/create-order',
 				});
 			},
 			// 复选组改变
-			groupCheckboxChange(values){
-				if(values.length && (this.list.length === values.length)) {
+			groupCheckboxChange(values) {
+				if (values.length && (this.list.length === values.length)) {
 					this.checkAll = true;
-				}else{
-					 if(this.list.length) this.checkAll = false;
+				} else {
+					if (this.list.length) this.checkAll = false;
 				}
 			},
 			// 全选改变
-			changeCheAll(){
-				this.list.forEach(item=> item.checked = this.checkAll)
+			changeCheAll() {
+				this.list.forEach(item => item.checked = this.checkAll)
 			},
 			// 跳转所有商品
 			jumpGoodsAll() {
@@ -146,9 +155,9 @@
 		computed: {
 			// 合计
 			totalPrice() {
-				return this.list.filter(item=> item.checked).reduce((pre,next)=>{
+				return this.list.filter(item => item.checked).reduce((pre, next) => {
 					return pre + next.price
-				},0)
+				}, 0)
 			}
 		}
 	}
@@ -157,12 +166,12 @@
 <style lang="scss">
 	.cart-page {
 		//#ifdef H5
-		 min-height: calc(100vh - 94px);
+		min-height: calc(100vh - 94px);
 		//#endif
 		//#ifdef MP
-		 min-height: calc(100vh - 54px);
+		min-height: calc(100vh - 54px);
 		//#endif
-		
+
 		background-color: #f6f6f6;
 
 		.align-items {
@@ -181,13 +190,14 @@
 			.right {
 				flex: 1;
 			}
-		}		
-		.cart-action-bar{
+		}
+
+		.cart-action-bar {
 			//#ifdef H5
-			 bottom: 44px;
+			bottom: 44px;
 			//#endif
 			//#ifdef MP
-			 bottom: 0;
+			bottom: 0;
 			//#endif
 		}
 	}

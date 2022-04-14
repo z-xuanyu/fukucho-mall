@@ -2,7 +2,7 @@
 	<view class="order-page">
 		<tm-tabs v-model="activeIndex" :list="list" @change="changeTabs"></tm-tabs>
 		<view class="pa-20">
-			<view class="pa-20 px-30 white round-2 mb-20" v-for="item in orderList" :key="item._id">
+			<view class="pa-20 px-30 white round-2 shadow-10 mb-20" v-for="item in orderList" :key="item._id">
 				<view class="flex py-20" @click="jumpOrderDetail(item._id)" v-for="goods in item.products" :key="goods._id">
 					<image
 						:src="goods.productId.pic"
@@ -15,7 +15,7 @@
 							<text>x 1</text>
 							<text class="ml-20">{{ goods.skuName }}</text>
 						</view>
-						<view class="mt-20 text-primary">
+						<view class="mt-20 text-weight-b">
 							<text class="text-size-xs">￥</text>
 							<text>{{ goods.price }}</text>
 						</view>
@@ -23,8 +23,8 @@
 				</view>
 				<view class="text-align-right">
 					<text class="text-size-xs">实际付款</text>
-					<text class="text-size-xs ml-20">￥</text>
-					<text>{{ item.totalPrice }}</text>
+					<text class="text-size-xs text-primary text-weight-b ml-20">￥</text>
+					<text class="text-primary text-weight-b">{{ item.totalPrice }}</text>
 				</view>
 				<view class="flex flex-between mt-20 items-center">
 					<text class="text-size-s text-grey">{{ item.status | orderStatusText }}</text>

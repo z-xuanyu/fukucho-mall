@@ -1,6 +1,6 @@
 <template>
 	<view class="histroy-page pa-20">
-		<view class="white round-2 pa-20 mb-20 flex" v-for="item in viewsHistory" :key="item.productId._id" @click="onGoodsInfo(item.productId._id)">
+		<view class="white round-4 shadow-10 pa-20 mb-20 flex" v-for="item in viewsHistory" :key="item.productId._id" @click="onGoodsInfo(item.productId._id)">
 			<view class="goods-img overflow">
 				<image :src="item.productId.pic" mode="widthFix"></image>
 			</view>
@@ -11,7 +11,7 @@
 				<view class="flex flex-between mb-20 fulled">
 					<view class="text-primary">
 						<text class="text-size-xs">￥</text>
-						<text>{{ item.productId.price }}</text>
+						<text class="text-weight-b">{{ item.productId.price }}</text>
 					</view>
 					<view class="flex items-center">
 						<view class="text-size-xs text-grey">

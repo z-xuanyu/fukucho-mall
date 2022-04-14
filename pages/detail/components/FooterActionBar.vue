@@ -48,11 +48,6 @@
 			GoodsSkuPopup
 		},
 		props: {
-			// 规格类型 1: 单规格 2: 多规格
-			type: {
-				type: String | Number,
-				default: 1,
-			},
 			info: {
 				type: Object | Array,
 				default: () => null
@@ -96,43 +91,53 @@
 				this.info.isCollection = !this.info.isCollection;
 			},
 			openSkuPopup() {
-				this.goodsInfo = {
-					"_id": "002",
-					"name": "迪奥香水",
-					"goods_thumb": "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
-					"sku_list": [{
-							"_id": "004",
-							"goods_id": "002",
-							"goods_name": "迪奥香水",
-							"image": "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
-							"price": 19800,
-							"sku_name_arr": ["50ml/瓶"],
-							"stock": 100
-						},
-						{
-							"_id": "005",
-							"goods_id": "002",
-							"goods_name": "迪奥香水",
-							"image": "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
-							"price": 9800,
-							"sku_name_arr": ["70ml/瓶"],
-							"stock": 100
-						}
-					],
-					"spec_list": [{
-						"list": [{
-								"name": "20ml/瓶"
-							},
-							{
-								"name": "50ml/瓶"
-							},
-							{
-								"name": "70ml/瓶"
-							}
-						],
-						"name": "规格"
-					}]
+				// 无规格
+				let data = {};
+				if (this.info.skuType == 1) {
+					data = {
+						_id: this.info._id,
+						name: this.info.title,
+						goods_thumb: this.info.pic,
+						sku_list: [{
+							_id: this.info._id,
+							goods_id: this.info._id,
+							goods_name: this.info.title,
+							image: this.info.pic,
+							price: this.info.price * 100,
+							stock: this.info.inventory,
+							sku_name_arr: ['默认'],
+						}],
+						spec_list: [{
+							list: [{
+								name: "默认"
+							}],
+							name: "默认"
+						}]
+					}
+				} else {
+					data = {
+						_id: this.info._id,
+						name: this.info.title,
+						goods_thumb: this.info.pic,
+						sku_list: this.info.skus.map(item => ({
+							_id: item._id,
+							goods_id: this.info._id,
+							goods_name: this.info.title,
+							image: item.image ? item.image : this.info.pic,
+							price: item.price * 100,
+							stock: item.inventory,
+							sku_name_arr: item.skuNames,
+						})),
+						spec_list: this.info.skuAttrs.map(item => ({
+							name: item.name,
+							list: item.values.map(v => ({
+								name: v
+							}))
+						}))
+					}
 				}
+
+				this.goodsInfo = data;
 				this.skuKey = true;
 			},
 			// sku组件 开始-----------------------------------------------------------
@@ -143,12 +148,32 @@
 				console.log("监听 - 关闭sku组件");
 			},
 			// 加入购物车按钮
-			addCartSubmit(selectShop) {
-				console.log()
+			async addCartSubmit(selectShop) {
+				await addCart({
+					productId: selectShop.goods_id,
+					num: selectShop.buy_num,
+					skuName: selectShop.sku_name_arr.join("-"),
+					price: selectShop.price / 100,
+				})
+				this.toast('加入成功');
+				this.skuKey = false;
+				console.log(selectShop, '加入购物车')
 			},
 			// 立即购买
 			buyNowSubmit(selectShop) {
-				
+				console.log(selectShop, '立即购买');
+				const data = {
+					productId: selectShop.goods_id,
+					num: selectShop.buy_num,
+					skuName: selectShop.sku_name_arr.join("-"),
+					price: selectShop.price / 100,
+					pic: selectShop.image,
+					title: selectShop.goods_name
+				}
+				uni.setStorageSync('selectProductInfo', data);
+				uni.navigateTo({
+					url: '/pages/create-order/create-order?type=1',
+				});
 			},
 			toast(msg) {
 				uni.showToast({
