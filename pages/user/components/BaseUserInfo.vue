@@ -14,7 +14,7 @@
 			</view>
 			<view class="flex items-center">
 				<tm-icons color="white" :size="35" name="icon-qrcode"></tm-icons>
-				<tm-icons color="white" :size="38" name="icon-bell" class="ml-20"></tm-icons>
+				<tm-icons @click="jumpMessageCenter" color="white" :size="38" name="icon-bell" class="ml-20"></tm-icons>
 			</view>
 		</view>
 		<view class="vip-wrapper">
@@ -30,6 +30,20 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			jumpMessageCenter() {
+				uni.navigateTo({
+					url: "/pages/user/message-center/message-center"
+				})
+			}
+		}
+	}
 </script>
 
 <style scoped lang="scss">

@@ -2,7 +2,7 @@
 	<view class="user-means">
 		<tm-sheet :padding="[0,0]" :shadow="10">
 			<view class="flex flex-around text-align-center">
-				<view v-for="(item, index) in navList" :key="index + 'c'" class="my-40">
+				<view v-for="(item, index) in navList" :key="index + 'c'" class="my-40" @click="jumpPage(index)">
 					<view class="text-weight-b text-size-lg">
 						{{ item.num }}
 					</view>
@@ -13,8 +13,10 @@
 			</view>
 		</tm-sheet>
 		<tm-sheet :shadow="10" :padding="[0,0]">
-			<tm-listitem title="我的订单" @click="jumpOrderList" :margin="[0,0]" left-icon="icon-database" show-left-icon left-icon-color="pink" value="查看全部"></tm-listitem>
-			<tm-grid @click-dot="iconClick" @change="change" :grid="5" :maxGrid="10" color="blue" :list="list"></tm-grid>
+			<tm-listitem title="我的订单" @click="jumpOrderList" :margin="[0,0]" left-icon="icon-database" show-left-icon
+				left-icon-color="pink" value="查看全部"></tm-listitem>
+			<tm-grid @click-dot="iconClick" @change="change" :grid="5" :maxGrid="10" color="blue" :list="list">
+			</tm-grid>
 		</tm-sheet>
 	</view>
 </template>
@@ -23,8 +25,7 @@
 	export default {
 		data() {
 			return {
-				navList: [
-					{
+				navList: [{
 						text: '我的余额',
 						num: '188.00',
 					},
@@ -42,42 +43,61 @@
 					}
 				],
 				list: [{
-						icon: 'icon-QQ',
+						icon: 'myicon-daifukuan',
 						text: '待支付',
-						color: 'blue'
+						color: 'black'
 					},
 					{
-						icon: 'icon-weibo',
+						icon: 'myicon-daifahuo',
 						text: '待发货',
 						iconSize: 40,
-						color: 'blue'
+						color: 'black'
 					},
 					{
-						icon: 'icon-pengyouquan',
+						icon: 'myicon-yiqianshou',
 						text: '待收货',
-						color: 'green',
-						fontColor: 'green'
+						color: 'black',
 					},
 					{
-						icon: 'icon-aliwangwang',
+						icon: 'myicon-xinxi',
 						text: '待评价',
-						color: 'blue-grey'
+						color: 'black'
 					},
 					{
-						icon: 'icon-aliwangwang',
+						icon: 'myicon-tuikuan',
 						text: '售后/退款',
-						color: 'blue-grey'
+						color: 'black'
 					},
 				],
 			}
 		},
 		methods: {
-			iconClick(){},
-			change(){},
+			iconClick() {},
+			change() {},
 			jumpOrderList() {
 				uni.navigateTo({
 					url: '/pages/user/order/order'
 				})
+			},
+			jumpPage(index) {
+				switch (index) {
+					case 0:
+						break;
+					case 1:
+						break;
+					case 2:
+						uni.navigateTo({
+							url: '/pages/user/coupon/coupon'
+						})
+						break;
+					case 3:
+						uni.navigateTo({
+							url: '/pages/user/collection/collection'
+						})
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}

@@ -16,10 +16,8 @@
 	/*每个页面公共css */
 	@import './tm-vuetify/mian.min.css';
 	@import './tm-vuetify/scss/theme.css';
+	@import './static/iconfont/iconfont.css';
 	.items-center{
 		align-items: center;
-	}
-	.h-full{
-		height: 100%;
 	}
 </style>

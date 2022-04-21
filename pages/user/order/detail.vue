@@ -2,8 +2,8 @@
 	<view class="order-detail">
 		<!-- 订单支付时间 -->
 		<tm-sheet color="primary" :shadow="24">
-			<view class="flex flex-center items-center text-size-n">
-				<tm-icons size="40" color="white" name="icon-yinhangqia"></tm-icons>
+			<view class="flex flex-center items-center">
+				<tm-icons size="38" color="white" name="icon-yinhangqia"></tm-icons>
 				<view class="ml-20">订单待支付</view>
 			</view>
 			<view class="flex flex-center text-size-xs mt-20">
@@ -13,29 +13,33 @@
 				<tm-countdown format="HH时MM分SS秒" :time="60*60*1000"></tm-countdown>
 			</view>
 		</tm-sheet>
+		<!-- 步骤 -->
+		<tm-sheet :shadow="24">
+			<tm-steps model="number" color="primary" activeFontColor="primary" line-color="primary" v-model="active" :list="list"></tm-steps>
+		</tm-sheet>
 		<!-- 地址 -->
 		<tm-sheet :shadow="24">
 			<view class="flex items-center">
 				<tm-icons size="38" color="black" name="icon-position-fill"></tm-icons>
-				<view class="ml-20 text-size-xs">
+				<view class="ml-20 flex-1">
 					<view class="mb-10">
-						{{ addressInfo.address }}
-					</view>
-					<view class="mb-10">
-						{{ addressInfo.detail }}
+						{{ addressInfo.address }}-{{ addressInfo.detail }}
 					</view>
 					<view>
 						<text>{{ addressInfo.name }}</text>
-						<text>{{ addressInfo.phone }}</text>
+						<text class="ml-10">{{ addressInfo.phone }}</text>
 					</view>
 				</view>
 			</view>
 		</tm-sheet>
 		<!-- 商品信息 -->
-		<tm-sheet :shadow="24" :padding="[25,10]">
-			<view class="flex py-20" v-for="item in orderInfo.products" :key="item._id">
+		<tm-sheet :shadow="24" :padding="[0,0]">
+			<view class="border-b-1 pa-20">
+				共 {{ orderInfo.products.length }}件商品
+			</view>
+			<view class="flex pa-10" v-for="item in orderInfo.products" :key="item._id">
 				<image class="goods-img" :src="item.productId.pic" mode=""></image>
-				<view class="ml-20 text-size-xs flex-1">
+				<view class="ml-20 flex-1">
 					<view class="mb-10 text-overflow-2">
 						{{ item.productId.title }}
 					</view>
@@ -48,50 +52,50 @@
 					</view>
 				</view>
 			</view>
+			<view class="flex items-center flex-center border-t-1 pa-20 text-blue">
+				<tm-icons name='icon-headset-fill' color="blue"></tm-icons>
+				<text class="ml-10">联系客服</text>
+			</view>
 		</tm-sheet>
 		<!-- 订单信息 -->
 		<tm-sheet :shadow="24">
-			<view class="text-size-s">
-				<view class="mb-20">
-					<text class="mr-20">订单编号:</text>
-					<text>164564564564564</text>
-				</view>
-				<view class="my-20">
-					<text class="mr-20">下单时间:</text>
-					<text>2022-03-18 17:53:43</text>
-				</view>
-				<view class="my-20">
-					<text class="mr-20">支付方式:</text>
-					<text>164564564564564</text>
-				</view>
-				<view>
-					<text class="mr-20">支付编号:</text>
-					<text>164564564564564</text>
-				</view>
+			<view class="mb-20 flex flex-between">
+				<text class="mr-20">订单编号:</text>
+				<text>wx248462889885630464</text>
+			</view>
+			<view class="my-20 flex flex-between">
+				<text class="mr-20">下单时间:</text>
+				<text>2022-03-18 17:53:43</text>
+			</view>
+			<view class="my-20 flex flex-between">
+				<text class="mr-20">支付状态:</text>
+				<text>未支付</text>
+			</view>
+			<view class="flex flex-between">
+				<text class="mr-20">支付方式:</text>
+				<text>微信</text>
 			</view>
 		</tm-sheet>
 		
 		<!-- 订单支付金额 -->
 		<tm-sheet :shadow="24">
-			<view class="text-size-s">
-				<view class="mb-20 flex flex-between">
-					<text class="mr-20 text-grey">总计</text>
-					<text>￥{{ orderInfo.totalPrice }}</text>
-				</view>
-				<view class="my-20 flex flex-between">
-					<text class="mr-20 text-grey">优惠</text>
-					<text>￥0</text>
-				</view>
-				<view class="my-20 flex flex-between">
-					<text class="mr-20 text-grey">运费</text>
-					<text>￥0</text>
-				</view>
-				<view class="flex flex-between">
-					<text class="mr-20">实际实付</text>
-					<view class="text-primary">
-						<text>￥</text>
-						<text class="text-size-g">{{ orderInfo.totalPrice }}</text>
-					</view>
+			<view class="mb-20 flex flex-between">
+				<text class="mr-20 text-grey">总计</text>
+				<text>￥{{ orderInfo.totalPrice }}</text>
+			</view>
+			<view class="my-20 flex flex-between">
+				<text class="mr-20 text-grey">优惠</text>
+				<text>￥0</text>
+			</view>
+			<view class="my-20 flex flex-between">
+				<text class="mr-20 text-grey">运费</text>
+				<text>￥0</text>
+			</view>
+			<view class="flex flex-between">
+				<text class="mr-20">实际实付</text>
+				<view class="text-primary">
+					<text>￥</text>
+					<text class="text-size-g">{{ orderInfo.totalPrice }}</text>
 				</view>
 			</view>
 		</tm-sheet>
@@ -118,6 +122,9 @@
 			return {
 				orderInfo: '',
 				addressInfo: '',
+				active: 1,
+				list:['待付款','待发货','待收货','待评价', '已完成'],
+				
 			};
 		},
 		onLoad(option) {

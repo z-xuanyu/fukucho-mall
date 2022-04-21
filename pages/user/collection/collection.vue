@@ -36,7 +36,7 @@
 <style lang="scss">
 .collection-page{
 	background-color: #f6f6f6;
-	min-height: calc(100vh - 44px);
+	min-height: calc(100vh - 66px);
 	.info{
 		flex: 1;
 	}

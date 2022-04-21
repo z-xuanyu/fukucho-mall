@@ -22,7 +22,7 @@
 		<view class="mt-20">
 			<scroll-view class="scroll-view" scroll-x="true" scroll-left="120">
 				<view class="list flex px-10">
-					<view v-for="(item, index) in list" :key="item._id" class="pa-10 fulled">
+					<view v-for="(item, index) in list" :key="item._id" class="pa-10 fulled" @click="jumpGoodsDetail(item._id)">
 						<view class="white text-center p-20 item">
 							<view class="relative">
 								<image  :src="item.pic" mode=""></image>
@@ -57,6 +57,13 @@
 		data() {
 			return {}
 		},
+		methods: {
+			jumpGoodsDetail(id) {
+				uni.navigateTo({
+					url: `/pages/detail/detail?id=${id}`,
+				});
+			}
+		}
 	}
 </script>
 

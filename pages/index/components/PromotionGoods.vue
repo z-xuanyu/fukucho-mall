@@ -9,7 +9,7 @@
 			<text class="text-grey">更多</text>
 		</view>
 		<view class="mt-20 list">
-			<view class="flex list-item py-20" v-for="(item, index) in list" :key="index">
+			<view class="flex list-item py-20" v-for="(item, index) in list" :key="item._id" @click="jumpGoodsDetail(item._id)">
 				<image :src="item.pic" mode="aspectFill"></image>
 				<view class="flex-1 flex-col flex-between">
 					<view class="title text-overflow-2">
@@ -39,6 +39,13 @@
 
 			}
 		},
+		methods: {
+			jumpGoodsDetail(id) {
+				uni.navigateTo({
+					url: `/pages/detail/detail?id=${id}`,
+				});
+			}
+		}
 	}
 </script>
 

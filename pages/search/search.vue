@@ -1,16 +1,18 @@
 <template>
-	<view class="search-page pa-20">
-		<tm-search v-model="value" bgColor="#f6f6f6" placeholder="搜索关键词" insertColor="grey" :round="25" :show-right="false"></tm-search>
-		<view class="mt-20 white pa-30">
-			<text class="text-grey text-size-xs">热门搜索</text>
-			<view class="mt-20 flex flex-wrap">
-				<text @click="onClickKeyWord" class="search-tag text-size-xs mx-20 my-10" v-for="item in 3" :key="item">手机</text>
+	<view class="search-page">
+		<tm-search v-model="value" placeholder="搜索关键词" insertColor="grey" :round="24" :show-right="false"></tm-search>
+		<view class="pa-20">
+			<view class="white pa-30">
+				<text class="text-grey text-size-xs">热门搜索</text>
+				<view class="mt-20 flex flex-wrap">
+					<text @click="onClickKeyWord" class="search-tag text-size-xs mx-20 my-10" v-for="item in 3" :key="item">手机</text>
+				</view>
 			</view>
-		</view>
-		<view class="mt-20 white pa-30">
-			<text class="text-grey text-size-xs">热门搜索</text>
-			<view class="mt-20 flex flex-wrap">
-				<text class="search-tag text-size-xs mx-20 my-10" v-for="item in 3" :key="item">手机</text>
+			<view class="mt-20 white pa-30">
+				<text class="text-grey text-size-xs">热门搜索</text>
+				<view class="mt-20 flex flex-wrap">
+					<text class="search-tag text-size-xs mx-20 my-10" v-for="item in 3" :key="item">手机</text>
+				</view>
 			</view>
 		</view>
 	</view>
