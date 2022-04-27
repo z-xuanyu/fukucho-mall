@@ -7,9 +7,9 @@
 						<tm-icons size="40" name="icon-home" color="black"></tm-icons>
 						<text class="text-size-xs">首页</text>
 					</view>
-					<view class="flex flex-col ml-40 items-center" @click="jumpCart">
-						<tm-icons size="40" name="icon-shoppingcart" color="black"></tm-icons>
-						<text class="text-size-xs">购物车</text>
+					<view class="flex flex-col ml-40 items-center" @click="jumpChat">
+						<tm-icons size="40" name="icon-aliwangwang" color="black"></tm-icons>
+						<text class="text-size-xs">客服</text>
 					</view>
 					<view class="flex flex-col ml-40 items-center" @click="onClickColletionGodds">
 						<tm-icons size="40" name="icon-like" v-if="!info.isCollection" color="black"></tm-icons>
@@ -68,10 +68,10 @@
 					url: '/pages/index/index'
 				});
 			},
-			// 跳转购物车
-			jumpCart() {
-				uni.switchTab({
-					url: '/pages/cart/cart'
+			// 跳转客服
+			jumpChat() {
+				uni.navigateTo({
+					url: '/pages/chat/chat'
 				})
 			},
 			// 点击收藏商品

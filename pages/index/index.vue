@@ -65,20 +65,6 @@
 				banners: [],
 				navigations: [],
 				hotProducts: [],
-				tabList: [{
-						name: '精选'
-					},
-					{
-						name: '护肤'
-					},
-					{
-						name: '彩妆'
-					},
-					{
-						name: '香水'
-					},
-				]
-
 			}
 		},
 		methods: {

@@ -21,7 +21,6 @@ const actions = {
  	async postLogin({commit},data){
 		const res = await login(data);
 		uni.setStorageSync('token', res.accessToken);
-		console.log(res, 44444444)
 		commit("SET_USER_TOKEN",res.accessToken);
 	}
 }
