@@ -2,7 +2,7 @@
 	<view class="send-box" ref="sendBox">
 		<view class="grey-lighten-3 py-20">
 			<view class="flex flex-between px-30">
-				<tm-icons :size="48" color="grey" name="myicon-photo"></tm-icons>
+				<tm-icons :size="48" color="grey" name="myicon-photo" @click="handleSendPhoto"></tm-icons>
 				<view class="relative flex-1 px-20">
 					<tm-input v-model="sendContent" :height="40" :padding='[12,12]' :bg-round="2" placeholder="请输入内容"></tm-input>
 					<view class="send-icon rounded flex flex-center items-center absolute r-35" :class="sendContent ? 'primary': 'grey-lighten-1'">
@@ -56,6 +56,7 @@
 			})
 		},
 		methods: {
+			// 显示标签
 			handleShowEmoji() {
 				this.showEmoji = !this.showEmoji;
 				this.$nextTick(()=>{
@@ -63,6 +64,7 @@
 					this.$emit('send-box-height', sendBoxHeight);
 				})
 			},
+			// 发送信息
 			handleClickSend() {
 				if(!this.sendContent) return uni.showToast({
 					title: '请输入内容',
@@ -77,6 +79,21 @@
 					messageType: 1,
 				})
 				this.sendContent = '';
+			},
+			
+			// 选择图片发送
+			handleSendPhoto() {
+				uni.chooseImage({
+					count: 6, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album'], //从相册选择
+					success: function (res) {
+						console.log(JSON.stringify(res.tempFilePaths), 1111);
+						uni.uploadFile({
+							
+						})
+					}
+				});
 			}
 		}
 	}

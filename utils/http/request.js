@@ -56,8 +56,10 @@ http.interceptors.response.use(async (response) => {
 	switch (error.statusCode) {
 		// 提示登录
 		case 401:
+			const pages = getCurrentPages();
+			const route = pages[0].__page__.fullPath;
 			uni.navigateTo({
-				url: '/pages/login/login'
+				url: `/pages/login/login?from=${route}`
 			})
 			break;
 		default:

@@ -34,12 +34,18 @@
 							<template v-if="item.messageType == 1">
 								{{ item.content }}
 							</template>
-							<!-- 推送山沟 -->
+							<!-- 推送商品 -->
 							<template v-if="item.messageType == 5">
-								<view class="goods-info">
+								<view class="goods-info px-10">
 									<image
-										src="https://images.pexels.com/photos/5029929/pexels-photo-5029929.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-										mode=""></image>
+										:src="item.product.pic" mode="widthFix"></image>
+									<view class="title">
+										{{ item.product.title }}
+									</view>
+									<view class="price text-orange text-weight-b mt-10">
+										<text>￥</text>
+										<text class="text-size-xl">{{ item.product.price }}</text>
+									</view>
 								</view>
 							</template>
 						</view>
@@ -96,12 +102,12 @@
 
 		.list {
 			.msg-box {
-				max-width: 300rpx;
+				max-width: 400rpx;
 
 				.goods-info {
-					image {
+					width: 400rpx;
+					image{
 						width: 100%;
-						height: 100%;
 					}
 				}
 			}

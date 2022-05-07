@@ -6,9 +6,9 @@
 			</view>
 			<view class="form-wrap pt-30">
 				<tm-form @submit="handleClickLogin" ref="userInfo">
-					<tm-input prefixp-icon="icon-account" class="shadow-24" :height="80" name="email" prefixp-icon-color="grey"
-						bg-color="grey-lighten-5" :border-bottom="false" border-color="grey-lighten-3" required
-						placeholder="请输入邮箱账号" v-model="userInfo.email" />
+					<tm-input prefixp-icon="icon-account" class="shadow-24" :height="80" name="email"
+						prefixp-icon-color="grey" bg-color="grey-lighten-5" :border-bottom="false"
+						border-color="grey-lighten-3" required placeholder="请输入邮箱账号" v-model="userInfo.email" />
 					<tm-input prefixp-icon="icon-lock" :height="80" bg-color="grey-lighten-5" prefixp-icon-color="grey"
 						:border-bottom="false" border-color="grey-lighten-3" name="password" required
 						placeholder="请输入密码" input-type="password" v-model="userInfo.password" />
@@ -20,7 +20,7 @@
 			<view class="mt-30 pb-30 flex text-grey flex-center">
 				<text>找回密码</text>
 				<text class="px-30">|</text>
-				<text class="text-black">新用户注册</text>
+				<text class="text-black" @click="handleReg">新用户注册</text>
 			</view>
 
 			<view class="px-30 my-30 pt-30">
@@ -55,20 +55,53 @@
 					email: '',
 					password: ''
 				},
-				loading: false
+				loading: false,
+				fromUrl: '',
 			};
+		},
+		onLoad(options) {
+			if (options.from) {
+				this.fromUrl = options.from;
+			}
+		},
+		onBackPress() {
+			uni.switchTab({
+				url: '/pages/index/index',
+			});
+			return true;
 		},
 		methods: {
 			...mapActions(['postLogin']),
-			handleClickLogin(values) {
+			// 添加登录
+			async handleClickLogin(values) {
 				this.loading = true;
-				setTimeout(() => {
-					values && this.postLogin(values);
-					this.loading = false;
-					uni.navigateBack()
-				}, 1000)
+				values && await this.postLogin(values);
+				this.loading = false;
+				// 是否未授权跳转
+				if (this.fromUrl) {
+					// 是否是tabbar 页面
+					const isTabbarPage = ['/pages/cart/cart', '/pages/user/user'].indexOf(this.fromUrl);
+
+					if (isTabbarPage === -1) {
+						console.log(this.fromUrl,12121)
+						return uni.navigateTo({
+							url: this.fromUrl
+						})
+					}
+					uni.switchTab({
+						url: this.fromUrl,
+					});
+					return;
+				}
+				uni.switchTab({
+					url: '/pages/index/index',
+				});
+			},
+			handleReg() {
+				console.log('注册')
 			}
-		}
+		},
+
 	}
 </script>
 
